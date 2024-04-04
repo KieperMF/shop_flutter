@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -17,7 +15,7 @@ abstract class ManagementBase with Store {
 
   @action
   getUser() async{
-    user = service.firebaseAuth.currentUser;
+    user = service.getUser();
     debugPrint(user!.displayName);
   }
 }

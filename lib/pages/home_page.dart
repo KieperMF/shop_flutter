@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/controllers/db_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
@@ -15,7 +14,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final service = DbController();
-  User? user;
   final management = Management();
 
   @override
@@ -25,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> load() async {
-    management.user = await management.getUser();
+    await management.getUser();
   }
 
   @override
@@ -50,13 +48,12 @@ class _HomePageState extends State<HomePage> {
           return Center(
             child: Column(
               children: [
-                if(management.user !=null)...[
+                if (management.user != null) ...[
                   Text("Welcome ${management.user!.displayName}"),
-                Text('${management.user!.email}'),
-                ]else...[
-                  Text('fodase'),
+                  Text('${management.user!.email}'),
+                ] else ...[
+                  const Text('Erro ao carregar dados'),
                 ],
-                
               ],
             ),
           );
