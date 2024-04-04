@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class DbController {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  User? user;
 
   void login({required String email, required String password}) async {
     try {
@@ -10,6 +11,16 @@ class DbController {
           .signInWithEmailAndPassword(email: email, password: password);
     } catch (e) {
       debugPrint('$e');
+    }
+  }
+
+  Future<bool> loginVerif({required String email, required String password}) async {
+    try {
+      login(email: email, password: password);
+      return true;
+    } catch (e) {
+      debugPrint('$e');
+      return false;
     }
   }
 
@@ -24,5 +35,9 @@ class DbController {
     } catch (e) {
       debugPrint('$e');
     }
+  }
+
+  getUser(){
+   return firebaseAuth.currentUser;
   }
 }
