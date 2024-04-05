@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     load();
-    setState(() {});
   }
 
   Future<void> load() async {

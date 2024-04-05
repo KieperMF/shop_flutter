@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/controllers/db_controller.dart';
+import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/pages/home_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -14,6 +15,7 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final management = Management();
   bool obscurePassword = true;
   final service = DbController();
 
@@ -55,7 +57,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 width: 300,
                 child: Container(
@@ -84,7 +88,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 width: 300,
                 child: Container(
@@ -121,22 +127,27 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 25,),
+              const SizedBox(
+                height: 25,
+              ),
               ElevatedButton(
-                  onPressed: () {
-                    try {
-                      service.registerUser(
-                          name: nameController.text,
-                          email: emailController.text,
-                          password: passwordController.text);
+                  onPressed: () async {
+                    bool response = await service.registerVerif(
+                        name: nameController.text,
+                        email: emailController.text,
+                        password: passwordController.text);
+                    if (response == false) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Erro ao cadastrar')));
+                    } else {
                       nameController.clear();
                       emailController.clear();
                       passwordController.clear();
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const HomePage()));
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Erro ao cadastrar')));
+                      management.getUser();
+                      Future.delayed(const Duration(milliseconds: 1000), () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const HomePage()));
+                      });
                     }
                   },
                   style: const ButtonStyle(

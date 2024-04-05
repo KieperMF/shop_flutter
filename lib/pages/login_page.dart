@@ -75,18 +75,20 @@ class _LoginPageState extends State<LoginPage> {
                   bool response = await service.loginVerif(
                       email: emailController.text,
                       password: passwordController.text);
-                  emailController.clear();
-                  passwordController.clear();
-                  if (response) {
-                    management.getUser();
-                    Future.delayed(const Duration(milliseconds: 1000), (){
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const HomePage()));
-                    });
-                    
-                  } else {
+                  if (response == false) {
+                    debugPrint('$response');
+                    emailController.clear();
+                    passwordController.clear();
                     ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Credenciais Inválidas')));
+                  } else {
+                    management.getUser();
+                    emailController.clear();
+                    passwordController.clear();
+                    Future.delayed(const Duration(milliseconds: 1000), () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const HomePage()));
+                    });
                   }
                 },
                 icon: const Icon(Icons.login)),

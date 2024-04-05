@@ -5,26 +5,31 @@ class DbController {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   User? user;
 
-  void _login({required String email, required String password}) async {
+  _login({required String email, required String password}) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } catch (e) {
-      debugPrint('$e');
+      debugPrint('erro primeiro login: $e');
     }
   }
 
-  Future<bool> loginVerif({required String email, required String password}) async {
+  Future<bool> loginVerif(
+      {required String email, required String password}) async {
     try {
-      _login(email: email, password: password);
-      return true;
+      await _login(email: email, password: password);
+      if (firebaseAuth.currentUser!.displayName != null) {
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       debugPrint('erro login: $e');
       return false;
     }
   }
 
-  void registerUser(
+  registerUser(
       {required String email,
       required String password,
       required String name}) async {
@@ -37,7 +42,20 @@ class DbController {
     }
   }
 
-  getUser(){
-   return firebaseAuth.currentUser;
+  Future<bool> registerVerif({required String email,required String password,required String name}) async{
+    try{
+      await registerUser(email: email,password: password,name: name);
+      if (firebaseAuth.currentUser!.displayName != null) {
+        return true;
+      } else {
+        return false;
+      }
+    }catch(e){
+      return false;
+    }
+  }
+
+  getUser() {
+    return firebaseAuth.currentUser;
   }
 }
