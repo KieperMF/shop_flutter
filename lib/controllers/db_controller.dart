@@ -29,7 +29,7 @@ class DbController {
     }
   }
 
-  registerUser(
+  _registerUser(
       {required String email,
       required String password,
       required String name}) async {
@@ -44,7 +44,7 @@ class DbController {
 
   Future<bool> registerVerif({required String email,required String password,required String name}) async{
     try{
-      await registerUser(email: email,password: password,name: name);
+      await _registerUser(email: email,password: password,name: name);
       if (firebaseAuth.currentUser!.displayName != null) {
         return true;
       } else {

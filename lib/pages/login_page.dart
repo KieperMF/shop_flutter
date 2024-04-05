@@ -31,13 +31,14 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 200,
+              width: 300,
               child: Container(
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(5.0)),
                 child: TextField(
                   controller: emailController,
+                  decoration:const InputDecoration(hintText: 'Email', hintStyle: TextStyle(color: Colors.black)),
                 ),
               ),
             ),
@@ -45,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 20,
             ),
             SizedBox(
-              width: 200,
+              width: 300,
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black),
@@ -54,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextField(
                   controller: passwordController,
                   obscureText: obscurePassword,
-                  decoration: InputDecoration(
+                  decoration: InputDecoration(hintText: 'Senha',hintStyle:const TextStyle(color: Colors.black),
                       suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
