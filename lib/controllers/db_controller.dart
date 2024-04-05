@@ -5,7 +5,7 @@ class DbController {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   User? user;
 
-  void login({required String email, required String password}) async {
+  void _login({required String email, required String password}) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -16,10 +16,10 @@ class DbController {
 
   Future<bool> loginVerif({required String email, required String password}) async {
     try {
-      login(email: email, password: password);
+      _login(email: email, password: password);
       return true;
     } catch (e) {
-      debugPrint('$e');
+      debugPrint('erro login: $e');
       return false;
     }
   }
@@ -33,7 +33,7 @@ class DbController {
           .createUserWithEmailAndPassword(email: email, password: password);
       await userCredential.user!.updateDisplayName(name);
     } catch (e) {
-      debugPrint('$e');
+      debugPrint('erro cadastro: $e');
     }
   }
 

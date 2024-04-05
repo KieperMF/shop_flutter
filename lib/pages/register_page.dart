@@ -34,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 width: 300,
                 child: Container(
                   decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: TextFormField(
@@ -54,11 +55,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 20,),
               SizedBox(
                 width: 300,
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue),
+                    border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: TextFormField(
@@ -82,11 +84,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 20,),
               SizedBox(
                 width: 300,
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue),
+                    border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: TextFormField(
@@ -118,6 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 25,),
               ElevatedButton(
                   onPressed: () {
                     try {

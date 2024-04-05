@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shop_flutter/controllers/db_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/pages/home_page.dart';
@@ -80,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                   passwordController.clear();
                   if (response) {
                     management.getUser();
-                    Future.delayed(Duration(milliseconds: 1000), (){
+                    Future.delayed(const Duration(milliseconds: 1000), (){
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const HomePage()));
                     });
