@@ -14,8 +14,7 @@ class DbController {
     }
   }
 
-  Future<bool> loginVerif(
-      {required String email, required String password}) async {
+  Future<bool> loginVerif({required String email, required String password}) async {
     try {
       await _login(email: email, password: password);
       if (firebaseAuth.currentUser!.displayName != null) {

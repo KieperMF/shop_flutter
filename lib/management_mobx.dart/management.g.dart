@@ -9,10 +9,76 @@ part of 'management.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$Management on ManagementBase, Store {
+  late final _$userAtom = Atom(name: 'ManagementBase.user', context: context);
+
+  @override
+  User? get user {
+    _$userAtom.reportRead();
+    return super.user;
+  }
+
+  @override
+  set user(User? value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
+    });
+  }
+
+  late final _$selectedImageAtom =
+      Atom(name: 'ManagementBase.selectedImage', context: context);
+
+  @override
+  String? get selectedImage {
+    _$selectedImageAtom.reportRead();
+    return super.selectedImage;
+  }
+
+  @override
+  set selectedImage(String? value) {
+    _$selectedImageAtom.reportWrite(value, super.selectedImage, () {
+      super.selectedImage = value;
+    });
+  }
+
+  late final _$selectedImage1Atom =
+      Atom(name: 'ManagementBase.selectedImage1', context: context);
+
+  @override
+  Observable<File>? get selectedImage1 {
+    _$selectedImage1Atom.reportRead();
+    return super.selectedImage1;
+  }
+
+  @override
+  set selectedImage1(Observable<File>? value) {
+    _$selectedImage1Atom.reportWrite(value, super.selectedImage1, () {
+      super.selectedImage1 = value;
+    });
+  }
+
+  late final _$pickImageFromGalleryAsyncAction =
+      AsyncAction('ManagementBase.pickImageFromGallery', context: context);
+
+  @override
+  Future<dynamic> pickImageFromGallery() {
+    return _$pickImageFromGalleryAsyncAction
+        .run(() => super.pickImageFromGallery());
+  }
+
+  late final _$getUserAsyncAction =
+      AsyncAction('ManagementBase.getUser', context: context);
+
+  @override
+  Future getUser() {
+    return _$getUserAsyncAction.run(() => super.getUser());
+  }
+
   @override
   String toString() {
     return '''
-
+user: ${user},
+selectedImage: ${selectedImage},
+selectedImage1: ${selectedImage1}
     ''';
   }
 }
