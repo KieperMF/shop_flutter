@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,9 +16,6 @@ abstract class ManagementBase with Store {
   
   @observable
   String? selectedImage;
-
-  @observable
-  Observable<File>? selectedImage1;
 
   @action
   Future pickImageFromGallery() async{

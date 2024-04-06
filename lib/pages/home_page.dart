@@ -68,9 +68,9 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 400,
                   child: management.selectedImage != null
-                      ? Image.file(File(management.selectedImage!))
+                      ? Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)) ,child: Image.file(File(management.selectedImage!)))
                       : const Text('Selecione uma imagem'),
-                )
+                ),
               ],
             ),
           );

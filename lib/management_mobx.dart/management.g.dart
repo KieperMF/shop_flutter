@@ -40,22 +40,6 @@ mixin _$Management on ManagementBase, Store {
     });
   }
 
-  late final _$selectedImage1Atom =
-      Atom(name: 'ManagementBase.selectedImage1', context: context);
-
-  @override
-  Observable<File>? get selectedImage1 {
-    _$selectedImage1Atom.reportRead();
-    return super.selectedImage1;
-  }
-
-  @override
-  set selectedImage1(Observable<File>? value) {
-    _$selectedImage1Atom.reportWrite(value, super.selectedImage1, () {
-      super.selectedImage1 = value;
-    });
-  }
-
   late final _$pickImageFromGalleryAsyncAction =
       AsyncAction('ManagementBase.pickImageFromGallery', context: context);
 
@@ -77,8 +61,7 @@ mixin _$Management on ManagementBase, Store {
   String toString() {
     return '''
 user: ${user},
-selectedImage: ${selectedImage},
-selectedImage1: ${selectedImage1}
+selectedImage: ${selectedImage}
     ''';
   }
 }
