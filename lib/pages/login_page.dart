@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (context) => const RegisterPage()));
                 },
                 child: const Text(
-                  'Fazer Cadastro',
+                  'Não tem uma conta? Fazer Cadastro',
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 )),
           ],
