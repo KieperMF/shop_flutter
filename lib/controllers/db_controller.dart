@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class DbController {
@@ -9,6 +11,7 @@ class DbController {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+          
     } catch (e) {
       debugPrint('erro primeiro login: $e');
     }
@@ -54,7 +57,33 @@ class DbController {
     }
   }
 
+  void saveProfilePic(String? profilePic) async{
+    String uid = user!.uid;
+    final storageRef = FirebaseStorage.instance.ref().child('profiles/$uid/profile_pic');
+    try{
+      await storageRef.putFile(File(profilePic!));
+      debugPrint('Succes on save profile pic');
+    }catch(e){
+      debugPrint('erro save profile pic: $e');
+    } 
+  }
+
+  getUserPic()async{
+    String uid = user!.uid;
+    final storageRef = FirebaseStorage.instance.ref().child('profiles/$uid/profile_pic');
+
+    try{
+      String request = await storageRef.getDownloadURL();
+      debugPrint('erro save profile pic: $request');
+      return request;
+    }catch(e){
+      debugPrint('erro get profile pic: $e');
+      return null;
+    }
+  }
+
   getUser() {
+    user = firebaseAuth.currentUser;
     return firebaseAuth.currentUser;
   }
 }

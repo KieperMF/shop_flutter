@@ -86,6 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                     management.getUser();
                     emailController.clear();
                     passwordController.clear();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Logado com sucesso')));
                     Future.delayed(const Duration(milliseconds: 1000), () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const HomePage()));

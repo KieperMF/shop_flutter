@@ -52,31 +52,9 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Text("Welcome ${management.user!.displayName}"),
-                  MaterialButton(
-                      child: const Text(
-                        'Selecione uma imagem',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                      onPressed: () {
-                        management.pickImageFromGallery();
-                      }),
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    height: 200,
-                    width: 200,
-                    child: management.selectedImage != null
-                        ? Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Image.file(File(management.selectedImage!)))
-                        : const Text('Selecione uma imagem'),
-                  ),
-                  const SizedBox(height: 20,),
                 ],
               ),
             );
@@ -87,31 +65,44 @@ class _HomePageState extends State<HomePage> {
         child: Observer(builder: (context) {
           return Column(
             children: [
-              const SizedBox(height: 30,),
-              management.selectedImage != null
+              const SizedBox(
+                height: 30,
+              ),
+              management.userPic != null
                   ? SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Container(
-                        decoration:
-                            BoxDecoration(borderRadius: BorderRadius.circular(5)),
-                        child: Image.file(File(management.selectedImage!))),
-                  )
+                      width: 100,
+                      height: 100,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Image.network(management.userPic!)),
+                    )
                   : const SizedBox(
                       height: 100,
                       width: 100,
-                      child:  Icon(Icons.account_box, size: 100,),
+                      child: Icon(
+                        Icons.account_box,
+                        size: 100,
+                      ),
                     ),
-                    const SizedBox(height: 20,),
-                    SizedBox(
-                      child: TextButton(onPressed: (){
+              const SizedBox(
+                height: 20,
+              ),
+              if (management.userPic == null) ...[
+                SizedBox(
+                  child: TextButton(
+                      onPressed: () {
                         management.pickImageFromGallery();
-                      }, child:const Text('Selecione uma foto de perfil')),
-                    ),
-                    const SizedBox(height: 20,),
-                    SizedBox(
-                      child: Text('${management.user!.displayName}'),
-                    )
+                      },
+                      child: const Text('Selecione uma foto de perfil')),
+                ),
+              ],
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                child: Text('${management.user!.displayName}'),
+              )
             ],
           );
         }),

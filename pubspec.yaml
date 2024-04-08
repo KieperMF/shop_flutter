@@ -32,6 +32,8 @@ dependencies:
   image_picker: ^1.0.7
   melos: ^5.3.0
   global: ^0.0.28
+  cloud_firestore: ^4.16.0
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:

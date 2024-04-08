@@ -17,16 +17,22 @@ abstract class ManagementBase with Store {
   @observable
   String? selectedImage;
 
+  @observable
+  String? userPic;
+
   @action
   Future pickImageFromGallery() async{
     final responseImage = await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImage = responseImage!.path;
+    service.saveProfilePic(selectedImage);
     debugPrint(selectedImage);
   }
 
   @action
   getUser() async{
     user = service.getUser();
+    userPic = await service.getUserPic();
+    debugPrint('profile pic: $userPic');
     debugPrint(user!.displayName);
   }
   
