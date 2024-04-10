@@ -74,7 +74,7 @@ class DbController {
 
     try{
       String request = await storageRef.getDownloadURL();
-      debugPrint('erro save profile pic: $request');
+      debugPrint('sucess get profile pic');
       return request;
     }catch(e){
       debugPrint('erro get profile pic: $e');

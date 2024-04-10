@@ -11,6 +11,8 @@ class Management = ManagementBase with _$Management;
 abstract class ManagementBase with Store {
   final service = DbController();
 
+  String adminId = "f7CHSgvGb1TOhX3i5tj8jQsoGlB3";
+
   @observable
   User? user;
   
