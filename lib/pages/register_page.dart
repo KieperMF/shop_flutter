@@ -119,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       if (value == null) {
                         return 'A senha não pode ser vazia';
                       }
-                      if (value.length < 5) {
+                      if (value.length < 6) {
                         return 'A senha é muito curta';
                       }
                       return null;

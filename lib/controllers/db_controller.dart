@@ -82,6 +82,8 @@ class DbController {
     }
   }
 
+  
+
   getUser() {
     user = firebaseAuth.currentUser;
     return firebaseAuth.currentUser;
