@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shop_flutter/controllers/db_controller.dart';
+import 'package:shop_flutter/models/product_model.dart';
 
 part 'management.g.dart';
 
@@ -11,13 +12,18 @@ class Management = ManagementBase with _$Management;
 abstract class ManagementBase with Store {
   final service = DbController();
 
-  String adminId = "f7CHSgvGb1TOhX3i5tj8jQsoGlB3";
+  String adminId = "qElhXpEEuvTPWxU8jaK1pU9Zojf2";
 
   @observable
   User? user;
   
   @observable
   String? selectedImage;
+
+  @observable
+  ObservableList<Product> products = ObservableList.of([]);
+
+  Product? product;
 
   @observable
   String? userPic;
@@ -31,11 +37,27 @@ abstract class ManagementBase with Store {
   }
 
   @action
+  Future pickProductFromGallery() async{
+    final responseImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    selectedImage = responseImage!.path;
+    debugPrint(selectedImage);
+  }
+
+  @action
   getUser() async{
     user = service.getUser();
     userPic = await service.getUserPic();
     debugPrint('profile pic: $userPic');
     debugPrint(user!.displayName);
   }
-  
+
+  addProduct(Product product) async{
+    await service.addProduct(product);
+  }
+
+  @action
+  getProduct()async{
+    List<Product> prods = await service.getProduct();
+    products.addAll(prods);
+  }
 }

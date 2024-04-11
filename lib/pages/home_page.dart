@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/pages/edit_page.dart';
@@ -25,6 +26,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> load() async {
     await management.getUser();
+    await management.getProduct();
+    //debugPrint('produtos: ${management.products.first}');
   }
 
   @override
@@ -53,6 +56,21 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 20,
                   ),
+                  //Text('produto: ${management.product!.name}')
+                  SizedBox(
+                    width: 200,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: management.products.length,
+                      itemBuilder: (context, index){
+                        management.product = management.products.elementAt(index);
+                        return Column(
+                          children: [
+                            Text('${management.product!.name}')
+                          ],
+                        );
+                      }),
+                  )
                 ],
               ),
             );
@@ -73,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5)),
-                          child: Image.network(management.userPic!)),
+                          child: Image.file(File(management.userPic!))),
                     )
                   : const SizedBox(
                       height: 100,

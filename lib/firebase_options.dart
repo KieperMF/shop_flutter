@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAZ4hpCkFOMblWuZpaiJpTzMOfOloWFbMc',
-    appId: '1:493699491396:web:d1fad5fb4cd4c6716c7e11',
-    messagingSenderId: '493699491396',
-    projectId: 'fluttershop-e8298',
-    authDomain: 'fluttershop-e8298.firebaseapp.com',
-    storageBucket: 'fluttershop-e8298.appspot.com',
-    measurementId: 'G-D9D6S5PJTT',
+    apiKey: 'AIzaSyCUZ-tK15hpr-sMx9IZ0iBS6B6cw0foMe0',
+    appId: '1:607325887465:web:b9e1148df731df700fc978',
+    messagingSenderId: '607325887465',
+    projectId: 'shopflutter-ecc80',
+    authDomain: 'shopflutter-ecc80.firebaseapp.com',
+    storageBucket: 'shopflutter-ecc80.appspot.com',
+    measurementId: 'G-31N98PYCB5',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBq8iJD6lZpwKQiVhyKd-5W78QPYIcDwZc',
-    appId: '1:493699491396:android:5d322335e3756f7b6c7e11',
-    messagingSenderId: '493699491396',
-    projectId: 'fluttershop-e8298',
-    storageBucket: 'fluttershop-e8298.appspot.com',
+    apiKey: 'AIzaSyB0yCJhDKUQ9LizOuNtmwU2ZA410K_M-2Q',
+    appId: '1:607325887465:android:e1c7056a1751be820fc978',
+    messagingSenderId: '607325887465',
+    projectId: 'shopflutter-ecc80',
+    storageBucket: 'shopflutter-ecc80.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBPHHo6Fgq4CMZ9qJRBV3zMfHUe4Ouzxec',
-    appId: '1:493699491396:ios:89c857eda72639076c7e11',
-    messagingSenderId: '493699491396',
-    projectId: 'fluttershop-e8298',
-    storageBucket: 'fluttershop-e8298.appspot.com',
+    apiKey: 'AIzaSyD8gGpHH1IdjiqjtDmSzOhYV6s3UkI2zjM',
+    appId: '1:607325887465:ios:4d372601485c3d5c0fc978',
+    messagingSenderId: '607325887465',
+    projectId: 'shopflutter-ecc80',
+    storageBucket: 'shopflutter-ecc80.appspot.com',
     iosBundleId: 'com.example.shopFlutter',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBPHHo6Fgq4CMZ9qJRBV3zMfHUe4Ouzxec',
-    appId: '1:493699491396:ios:f19d3a99e856191a6c7e11',
-    messagingSenderId: '493699491396',
-    projectId: 'fluttershop-e8298',
-    storageBucket: 'fluttershop-e8298.appspot.com',
+    apiKey: 'AIzaSyD8gGpHH1IdjiqjtDmSzOhYV6s3UkI2zjM',
+    appId: '1:607325887465:ios:5218e57dcd5846560fc978',
+    messagingSenderId: '607325887465',
+    projectId: 'shopflutter-ecc80',
+    storageBucket: 'shopflutter-ecc80.appspot.com',
     iosBundleId: 'com.example.shopFlutter.RunnerTests',
   );
 }
