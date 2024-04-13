@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/models/product_model.dart';
 
@@ -20,6 +23,7 @@ class DbController {
       {required String email, required String password}) async {
     try {
       await _login(email: email, password: password);
+      debugPrint('${firebaseAuth.currentUser!.displayName}');
       if (firebaseAuth.currentUser!.displayName != null) {
         return true;
       } else {
@@ -64,7 +68,7 @@ class DbController {
     String uid = user!.uid;
     String? responseImage;
     final storage =
-        FirebaseFirestore.instance.collection('profiles_pic').doc(uid);
+        FirebaseFirestore.instance.collection('profiles').doc(uid);
 
     try {
       await storage.get().then(
@@ -82,15 +86,37 @@ class DbController {
     }
   }
 
+  uploadProfilePic(File imageFile, String userId) async {
+    try {
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child('profile_pics').child(userId);
+
+      UploadTask uploadTask = storageReference.putFile(imageFile);
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+      // Obtém a URL de download da imagem
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      print('Erro ao fazer upload da imagem: $e');
+      return null;
+    }
+  }
+
   void saveProfilePic(String? profilePic) async {
     String uid = user!.uid;
-    final CollectionReference storageRef =
-        FirebaseFirestore.instance.collection('profiles_pic');
-    try {
-      await storageRef.doc(uid).set({'profile_pic': profilePic});
-      debugPrint('Succes on save profile pic');
-    } catch (e) {
-      debugPrint('erro save profile pic: $e');
+    String? imageUrl = await uploadProfilePic(File('${profilePic}'), uid);
+    
+    if (imageUrl != null) {
+      final CollectionReference profilesRef =
+          FirebaseFirestore.instance.collection('profiles');
+      try {
+        // Salva a URL da imagem no Firestore
+        await profilesRef.doc(uid).set({'profile_pic': imageUrl});
+        print('Sucesso ao salvar a imagem de perfil');
+      } catch (e) {
+        print('Erro ao salvar a imagem de perfil: $e');
+      }
     }
   }
 
@@ -98,7 +124,9 @@ class DbController {
     try {
       final CollectionReference storageRef =
           FirebaseFirestore.instance.collection('products');
-      await storageRef.add(product.toMap());
+      await storageRef.add(
+        product.toMap(),
+      );
       debugPrint('sucesso adicionar produto');
     } catch (e) {
       debugPrint('erro adicionar produto: $e');
@@ -118,6 +146,7 @@ class DbController {
           products.add(product!);
         }
       });
+
       return products;
     } catch (e) {
       debugPrint('erro carregar produtos: $e');

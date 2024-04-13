@@ -66,6 +66,7 @@ class _HomePageState extends State<HomePage> {
                         management.product = management.products.elementAt(index);
                         return Column(
                           children: [
+                            //Image.network('${management.product!.imagem}'),
                             Text('${management.product!.name}')
                           ],
                         );
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5)),
-                          child: Image.file(File(management.userPic!))),
+                          child: Image.network('${management.userPic!}')),
                     )
                   : const SizedBox(
                       height: 100,

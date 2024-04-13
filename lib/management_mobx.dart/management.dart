@@ -33,7 +33,7 @@ abstract class ManagementBase with Store {
     final responseImage = await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImage = responseImage!.path;
     service.saveProfilePic(selectedImage);
-    debugPrint(selectedImage);
+    //debugPrint(res´p);
   }
 
   @action
