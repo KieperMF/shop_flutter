@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -56,7 +57,6 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  //Text('produto: ${management.product!.name}')
                   SizedBox(
                     width: 200,
                     child: ListView.builder(
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                         management.product = management.products.elementAt(index);
                         return Column(
                           children: [
-                            //Image.network('${management.product!.imagem}'),
+                            SizedBox(height: 150,child: Image.network('${management.product!.imagem}')),
                             Text('${management.product!.name}')
                           ],
                         );

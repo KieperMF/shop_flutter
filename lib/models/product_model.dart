@@ -24,7 +24,7 @@ class Product{
   factory Product.fromJson(Map<dynamic, dynamic>json){
     return Product(
       name:json['name'],
-      imagem: json['imageUrl'],
+      imagem: json['urlImage'],
       amount: json['amount'],
       price: json['price']
     );

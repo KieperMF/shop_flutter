@@ -98,7 +98,7 @@ class DbController {
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
       return downloadUrl;
     } catch (e) {
-      print('Erro ao fazer upload da imagem: $e');
+      debugPrint('Erro ao fazer upload da imagem: $e');
       return null;
     }
   }
@@ -113,14 +113,15 @@ class DbController {
       try {
         // Salva a URL da imagem no Firestore
         await profilesRef.doc(uid).set({'profile_pic': imageUrl});
-        print('Sucesso ao salvar a imagem de perfil');
+        debugPrint('Sucesso ao salvar a imagem de perfil');
       } catch (e) {
-        print('Erro ao salvar a imagem de perfil: $e');
+        debugPrint('Erro ao salvar a imagem de perfil: $e');
       }
     }
   }
 
   addProduct(Product product) async {
+    product.imagem = await uploadProductPic(File('${product.imagem}'), product.name);
     try {
       final CollectionReference storageRef =
           FirebaseFirestore.instance.collection('products');
@@ -142,7 +143,9 @@ class DbController {
       await storageRef.get().then((querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
           final prodResp = docSnapshot.data() as Map;
+          debugPrint('$prodResp');
           product = Product.fromJson(prodResp);
+          debugPrint('url image ${product!.imagem}');
           products.add(product!);
         }
       });
@@ -150,6 +153,23 @@ class DbController {
       return products;
     } catch (e) {
       debugPrint('erro carregar produtos: $e');
+    }
+  }
+
+  uploadProductPic(File imageFile, String? name) async {
+    try {
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child('product_pic').child(name!);
+
+      UploadTask uploadTask = storageReference.putFile(imageFile);
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+      // Obtém a URL de download da imagem
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      debugPrint('Erro ao fazer upload da imagem: $e');
+      return null;
     }
   }
 
