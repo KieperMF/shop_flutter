@@ -104,7 +104,7 @@ class DbController {
 
   void saveProfilePic(String? profilePic) async {
     String uid = user!.uid;
-    String? imageUrl = await uploadProfilePic(File('${profilePic}'), uid);
+    String? imageUrl = await uploadProfilePic(File('$profilePic'), uid);
     
     if (imageUrl != null) {
       final CollectionReference profilesRef =

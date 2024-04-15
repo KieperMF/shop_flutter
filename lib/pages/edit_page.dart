@@ -17,7 +17,6 @@ class _EditPageState extends State<EditPage> {
   final prodNameController = TextEditingController();
   final prodPriceController = TextEditingController();
   final amountController = TextEditingController();
-  String? productImage;
   final management = Management();
 
   @override
@@ -100,8 +99,11 @@ class _EditPageState extends State<EditPage> {
                               price: prodPriceController.text,
                               amount: amountController.text);
                           final resp = await management.addProduct(product);
-                          
                           if(resp == true){
+                            prodNameController.clear();
+                            prodPriceController.clear();
+                            amountController.clear();
+                            management.selectedImage = null;
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Produto adicionado com sucesso')));
                             await management.getProduct();
                           }else{

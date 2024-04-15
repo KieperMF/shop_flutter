@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/firebase_options.dart';
-import 'package:shop_flutter/pages/home_page.dart';
 import 'package:shop_flutter/pages/login_page.dart';
+import 'package:shop_flutter/pages/navigation_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +34,7 @@ class StreamPage extends StatelessWidget {
       stream: FirebaseAuth.instance.userChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return const HomePage();
+          return const NavigationBarWidget();
         } else {
           return const LoginPage();
         }

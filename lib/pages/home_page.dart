@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/pages/edit_page.dart';
@@ -18,6 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final management = Management();
   File? selectedImage;
+  int selectedItem = 0;
 
   @override
   void initState() {
@@ -59,17 +58,21 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     width: 200,
                     child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: management.products.length,
-                      itemBuilder: (context, index){
-                        management.product = management.products.elementAt(index);
-                        return Column(
-                          children: [
-                            SizedBox(height: 150,child: Image.network('${management.product!.imagem}')),
-                            Text('${management.product!.name}'),
-                          ],
-                        );
-                      }),
+                        shrinkWrap: true,
+                        itemCount: management.products.length,
+                        itemBuilder: (context, index) {
+                          management.product =
+                              management.products.elementAt(index);
+                          return Column(
+                            children: [
+                              SizedBox(
+                                  height: 150,
+                                  child: Image.network(
+                                      '${management.product!.imagem}')),
+                              Text('${management.product!.name}'),
+                            ],
+                          );
+                        }),
                   )
                 ],
               ),
@@ -91,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5)),
-                          child: Image.network('${management.userPic!}')),
+                          child: Image.network(management.userPic!)),
                     )
                   : const SizedBox(
                       height: 100,
