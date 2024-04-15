@@ -93,13 +93,20 @@ class _EditPageState extends State<EditPage> {
                 SizedBox(
                     width: 250,
                     child: IconButton(
-                        onPressed: () {
+                        onPressed: () async{
                           Product product = Product(
                               name: prodNameController.text,
                               imagem: management.selectedImage!,
                               price: prodPriceController.text,
                               amount: amountController.text);
-                          management.addProduct(product);
+                          final resp = await management.addProduct(product);
+                          
+                          if(resp == true){
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Produto adicionado com sucesso')));
+                            await management.getProduct();
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Erro ao adicionar produto')));
+                          }
                         },
                         icon: const Icon(Icons.add))),
               ],

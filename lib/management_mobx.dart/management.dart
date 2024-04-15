@@ -52,7 +52,8 @@ abstract class ManagementBase with Store {
   }
 
   addProduct(Product product) async{
-    await service.addProduct(product);
+      final resp = await service.addProduct(product);
+      return resp;
   }
 
   @action

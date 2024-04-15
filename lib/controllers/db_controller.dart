@@ -94,7 +94,6 @@ class DbController {
       UploadTask uploadTask = storageReference.putFile(imageFile);
       TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
 
-      // Obtém a URL de download da imagem
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
       return downloadUrl;
     } catch (e) {
@@ -111,7 +110,6 @@ class DbController {
       final CollectionReference profilesRef =
           FirebaseFirestore.instance.collection('profiles');
       try {
-        // Salva a URL da imagem no Firestore
         await profilesRef.doc(uid).set({'profile_pic': imageUrl});
         debugPrint('Sucesso ao salvar a imagem de perfil');
       } catch (e) {
@@ -129,6 +127,7 @@ class DbController {
         product.toMap(),
       );
       debugPrint('sucesso adicionar produto');
+      return true;
     } catch (e) {
       debugPrint('erro adicionar produto: $e');
     }
@@ -143,7 +142,6 @@ class DbController {
       await storageRef.get().then((querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
           final prodResp = docSnapshot.data() as Map;
-          debugPrint('$prodResp');
           product = Product.fromJson(prodResp);
           debugPrint('url image ${product!.imagem}');
           products.add(product!);
@@ -164,7 +162,6 @@ class DbController {
       UploadTask uploadTask = storageReference.putFile(imageFile);
       TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
 
-      // Obtém a URL de download da imagem
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
       return downloadUrl;
     } catch (e) {

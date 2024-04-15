@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
   Future<void> load() async {
     await management.getUser();
     await management.getProduct();
-    //debugPrint('produtos: ${management.products.first}');
   }
 
   @override
@@ -67,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                         return Column(
                           children: [
                             SizedBox(height: 150,child: Image.network('${management.product!.imagem}')),
-                            Text('${management.product!.name}')
+                            Text('${management.product!.name}'),
                           ],
                         );
                       }),
