@@ -22,6 +22,7 @@ abstract class ManagementBase with Store {
   @observable
   ObservableList<Product> products = ObservableList.of([]);
 
+  @observable
   Product? product;
 
   @observable
@@ -32,7 +33,6 @@ abstract class ManagementBase with Store {
     final responseImage = await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImage = responseImage!.path;
     service.saveProfilePic(selectedImage);
-    //debugPrint(res´p);
   }
 
   @action
@@ -46,7 +46,9 @@ abstract class ManagementBase with Store {
     user = service.getUser();
     userPic = await service.getUserPic();
   }
+  
 
+  @action
   addProduct(Product product) async{
       final resp = await service.addProduct(product);
       return resp;

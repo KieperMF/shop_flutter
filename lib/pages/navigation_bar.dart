@@ -19,7 +19,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
       return const HomePage();
     }else if(selectedpage == 1){
       return const CartPage();
-    }else{
+    }else {
       return const ProfilePage();
     }
   }
@@ -40,7 +40,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
         ),
         BottomNavigationBarItem(
           icon:  Icon(Icons.person),
-          label: 'Peril',
+          label: 'Perfil',
         ),
       ],
       onTap: (value){

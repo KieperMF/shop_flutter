@@ -11,7 +11,9 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:const Text('Carrinho'),),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title:const Text('Carrinho'),),
     );
   }
 }

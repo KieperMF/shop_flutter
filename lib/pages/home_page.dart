@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
-import 'package:shop_flutter/pages/edit_page.dart';
 import 'package:shop_flutter/pages/login_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final management = Management();
   File? selectedImage;
-  int selectedItem = 0;
 
   @override
   void initState() {
@@ -25,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> load() async {
-    await management.getUser();
+    //await management.getUser();
     await management.getProduct();
   }
 
@@ -33,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Home Page'),
         actions: [
           IconButton(
@@ -79,71 +78,6 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-      ),
-      drawer: Drawer(
-        child: Observer(builder: (context) {
-          return Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              management.userPic != null
-                  ? SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Image.network(management.userPic!)),
-                    )
-                  : const SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: Icon(
-                        Icons.account_box,
-                        size: 100,
-                      ),
-                    ),
-              const SizedBox(
-                height: 20,
-              ),
-              if (management.userPic == null) ...[
-                SizedBox(
-                  child: TextButton(
-                      onPressed: () {
-                        management.pickImageFromGallery();
-                      },
-                      child: const Text('Selecione uma foto de perfil')),
-                ),
-              ],
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30),
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text('${management.user!.displayName}'),
-                ),
-              ),
-              if (management.user!.uid == management.adminId) ...[
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: TextButton(
-                      child: const Text('Adicionar Produtos'),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const EditPage()));
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ],
-          );
-        }),
       ),
     );
   }

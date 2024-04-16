@@ -64,26 +64,7 @@ class DbController {
     }
   }
 
-  getUserPic() async {
-    String uid = user!.uid;
-    String? responseImage;
-    final storage =
-        FirebaseFirestore.instance.collection('profiles').doc(uid);
-
-    try {
-      await storage.get().then(
-        (DocumentSnapshot doc) {
-          final data = doc.data() as Map<String, dynamic>;
-          responseImage = data.values.last.toString();
-        },
-        onError: (e) => debugPrint("Error getting document: $e"),
-      );
-      return responseImage;
-    } catch (e) {
-      debugPrint('erro get profile pic: $e');
-      return null;
-    }
-  }
+  
 
   uploadProfilePic(File imageFile, String userId) async {
     try {
@@ -167,6 +148,36 @@ class DbController {
       return null;
     }
   }
+
+  getUserPic() async {
+    String? responseImage;
+    final storage =
+        FirebaseFirestore.instance.collection('profiles').doc(firebaseAuth.currentUser!.uid);
+
+    try {
+      await storage.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          responseImage = data.values.last.toString();
+        },
+        onError: (e) => debugPrint("Error getting document: $e"),
+      );
+      return responseImage;
+    } catch (e) {
+      debugPrint('erro get profile pic: $e');
+      return null;
+    }
+  }
+
+  /*getPic()async{
+    try{
+      final ref = FirebaseStorage.instance.ref().child('profile_pics').child(firebaseAuth.currentUser!.uid);
+      final image = await ref.getDownloadURL();
+      return image;
+    }catch(e){
+      debugPrint('erro $e');
+    }
+  }*/
 
   getUser() {
     user = firebaseAuth.currentUser;

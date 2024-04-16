@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/controllers/db_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
-import 'package:shop_flutter/pages/home_page.dart';
+import 'package:shop_flutter/pages/navigation_bar.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -146,7 +146,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       management.getUser();
                       Future.delayed(const Duration(milliseconds: 1000), () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const HomePage()));
+                            builder: (context) => const NavigationBarWidget()));
                       });
                     }
                   },
