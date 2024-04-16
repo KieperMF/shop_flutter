@@ -74,7 +74,6 @@ class DbController {
       await storage.get().then(
         (DocumentSnapshot doc) {
           final data = doc.data() as Map<String, dynamic>;
-          debugPrint('sucess get profile pic: ${data.values.last}');
           responseImage = data.values.last.toString();
         },
         onError: (e) => debugPrint("Error getting document: $e"),
@@ -143,7 +142,6 @@ class DbController {
         for (var docSnapshot in querySnapshot.docs) {
           final prodResp = docSnapshot.data() as Map;
           product = Product.fromJson(prodResp);
-          debugPrint('url image ${product!.imagem}');
           products.add(product!);
         }
       });

@@ -51,7 +51,6 @@ class _HomePageState extends State<HomePage> {
             return Center(
               child: Column(
                 children: [
-                  Text("Welcome ${management.user!.displayName}"),
                   const SizedBox(
                     height: 20,
                   ),
@@ -59,6 +58,7 @@ class _HomePageState extends State<HomePage> {
                     width: 200,
                     child: ListView.builder(
                         shrinkWrap: true,
+                        physics:const BouncingScrollPhysics(),
                         itemCount: management.products.length,
                         itemBuilder: (context, index) {
                           management.product =
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                           return Column(
                             children: [
                               SizedBox(
-                                  height: 150,
+                                  height: 200,
                                   child: Image.network(
                                       '${management.product!.imagem}')),
                               Text('${management.product!.name}'),

@@ -49,6 +49,5 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
         });
       },),
     );
-    
   }
 }
