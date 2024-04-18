@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/models/product_model.dart';
-
+Product? productSelected;
 class DbController {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   User? user;

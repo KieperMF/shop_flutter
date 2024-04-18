@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:shop_flutter/controllers/db_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/pages/login_page.dart';
+import 'package:shop_flutter/pages/product_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,7 +25,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> load() async {
-    //await management.getUser();
     await management.getProduct();
   }
 
@@ -60,15 +61,20 @@ class _HomePageState extends State<HomePage> {
                         physics:const BouncingScrollPhysics(),
                         itemCount: management.products.length,
                         itemBuilder: (context, index) {
-                          management.product =
-                              management.products.elementAt(index);
                           return Column(
                             children: [
                               SizedBox(
                                   height: 200,
-                                  child: Image.network(
-                                      '${management.product!.imagem}')),
-                              Text('${management.product!.name}'),
+                                  child: TextButton(
+                                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
+                                    onPressed: (){
+                                      productSelected = management.products.elementAt(index);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductPage()));
+                                    },
+                                    child: Image.network(
+                                        '${management.products.elementAt(index).imagem}'),
+                                  )),
+                              Text('${management.products.elementAt(index).name}'),
                             ],
                           );
                         }),
