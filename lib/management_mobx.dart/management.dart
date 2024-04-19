@@ -23,6 +23,9 @@ abstract class ManagementBase with Store {
   ObservableList<Product> products = ObservableList.of([]);
 
   @observable
+  ObservableList<Product> cartProducts = ObservableList.of([]);
+
+  @observable
   Product? product;
 
   @observable
@@ -42,11 +45,16 @@ abstract class ManagementBase with Store {
   }
 
   @action
+  getCartProducts()async{
+    List<Product> prods = await service.getCartProducts();
+    cartProducts.addAll(prods);
+  }
+
+  @action
   getUser() async{
     user = service.getUser();
     userPic = await service.getUserPic();
   }
-  
 
   @action
   addProduct(Product product) async{
@@ -58,5 +66,10 @@ abstract class ManagementBase with Store {
   getProduct()async{
     List<Product> prods = await service.getProduct();
     products.addAll(prods);
+  }
+
+  @action
+  addCart(Product product){
+    service.addToCart(product);
   }
 }

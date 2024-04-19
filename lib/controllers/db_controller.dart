@@ -113,25 +113,7 @@ class DbController {
     }
   }
 
-  getProduct() async {
-    List<Product> products = [];
-    Product? product;
-    final CollectionReference storageRef =
-        FirebaseFirestore.instance.collection('products');
-    try {
-      await storageRef.get().then((querySnapshot) {
-        for (var docSnapshot in querySnapshot.docs) {
-          final prodResp = docSnapshot.data() as Map;
-          product = Product.fromJson(prodResp);
-          products.add(product!);
-        }
-      });
-
-      return products;
-    } catch (e) {
-      debugPrint('erro carregar produtos: $e');
-    }
-  }
+  
 
   uploadProductPic(File imageFile, String? name) async {
     try {
@@ -169,18 +151,57 @@ class DbController {
     }
   }
 
-  /*getPic()async{
-    try{
-      final ref = FirebaseStorage.instance.ref().child('profile_pics').child(firebaseAuth.currentUser!.uid);
-      final image = await ref.getDownloadURL();
-      return image;
-    }catch(e){
-      debugPrint('erro $e');
-    }
-  }*/
-
   getUser() {
     user = firebaseAuth.currentUser;
     return firebaseAuth.currentUser;
+  }
+
+  addToCart(Product product)async{
+    try{
+      final ref = FirebaseFirestore.instance.collection('cartProducts_${firebaseAuth.currentUser!.uid}');
+      await ref.add(product.toMap());
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
+
+  getProduct() async {
+    List<Product> products = [];
+    Product? product;
+    final CollectionReference storageRef =
+        FirebaseFirestore.instance.collection('products');
+    try {
+      await storageRef.get().then((querySnapshot) {
+        for (var docSnapshot in querySnapshot.docs) {
+          final prodResp = docSnapshot.data() as Map;
+          product = Product.fromJson(prodResp);
+          products.add(product!);
+        }
+      });
+
+      return products;
+    } catch (e) {
+      debugPrint('erro carregar produtos: $e');
+    }
+  }
+
+  getCartProducts()async{
+    List<Product> products = [];
+    Product? product;
+    final CollectionReference ref = FirebaseFirestore.instance.collection('cartProducts_${firebaseAuth.currentUser!.uid}');
+    try{
+       await ref.get().then((querySnapshot){
+        for (var docSnapshot in querySnapshot.docs) {
+          final prodResp = docSnapshot.data() as Map;
+          product = Product.fromJson(prodResp);
+          products.add(product!);
+        }
+      });
+      debugPrint('sucesso ao pegar produtos');
+      return products;
+    }catch(e){
+      debugPrint('erro pegar produtos do carrinho: $e');
+    }
   }
 }
