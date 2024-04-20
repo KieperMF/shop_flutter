@@ -64,8 +64,7 @@ class DbController {
     }
   }
 
-  
-
+  //sobe imagem para e depois retorna a url dela
   uploadProfilePic(File imageFile, String userId) async {
     try {
       Reference storageReference =
@@ -82,6 +81,7 @@ class DbController {
     }
   }
 
+  //salva a imagem do usuario
   void saveProfilePic(String? profilePic) async {
     String uid = user!.uid;
     String? imageUrl = await uploadProfilePic(File('$profilePic'), uid);
@@ -98,12 +98,13 @@ class DbController {
     }
   }
 
+  //adiciona o produto para o firebase
   addProduct(Product product) async {
     product.imagem = await uploadProductPic(File('${product.imagem}'), product.name);
     try {
-      final CollectionReference storageRef =
-          FirebaseFirestore.instance.collection('products');
-      await storageRef.add(
+      final storageRef =
+          FirebaseFirestore.instance.collection('products').doc(product.name);
+      await storageRef.set(
         product.toMap(),
       );
       debugPrint('sucesso adicionar produto');
@@ -114,7 +115,7 @@ class DbController {
   }
 
   
-
+  //subir a imagem do produto para o firestorage e depois retorna para o firestore database
   uploadProductPic(File imageFile, String? name) async {
     try {
       Reference storageReference =
@@ -131,6 +132,7 @@ class DbController {
     }
   }
 
+  //pega a imagem do usuario
   getUserPic() async {
     String? responseImage;
     final storage =
@@ -151,21 +153,35 @@ class DbController {
     }
   }
 
+  //pega o usuario atual logado 
   getUser() {
     user = firebaseAuth.currentUser;
     return firebaseAuth.currentUser;
   }
 
+  //adiciona o produto ao carrinho
   addToCart(Product product)async{
     try{
-      final ref = FirebaseFirestore.instance.collection('cartProducts_${firebaseAuth.currentUser!.uid}');
-      await ref.add(product.toMap());
+      final ref = FirebaseFirestore.instance.collection('cartProducts_${firebaseAuth.currentUser!.uid}').doc(product.name);
+      await ref.set(product.toMap());
       return true;
     }catch(e){
       return false;
     }
   }
 
+  //deleta o produto do carrinho do usuario
+  deleteFromCart(Product product)async{
+    try{
+      final ref = FirebaseFirestore.instance.collection('cartProducts_${firebaseAuth.currentUser!.uid}').doc(product.name);
+      await ref.delete();
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
+
+  //pega todos os produtos da database
   getProduct() async {
     List<Product> products = [];
     Product? product;

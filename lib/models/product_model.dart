@@ -4,12 +4,14 @@ class Product{
   String? imagem;
   String? price;
   String? amount;
+  String? description;
 
   Product({
      this.name,
      this.imagem,
      this.price,
-     this.amount
+     this.amount,
+     this.description
   });
 
   Map<String, dynamic> toMap() {
@@ -17,7 +19,8 @@ class Product{
       'name': name,
       'urlImage': imagem,
       'price': price,
-      'amount' : amount
+      'amount' : amount,
+      'description' : description
     };
   }
 
@@ -26,7 +29,8 @@ class Product{
       name:json['name'],
       imagem: json['urlImage'],
       amount: json['amount'],
-      price: json['price']
+      price: json['price'],
+      description: json['description']
     );
   }
 }

@@ -15,6 +15,7 @@ class EditPage extends StatefulWidget {
 
 class _EditPageState extends State<EditPage> {
   final prodNameController = TextEditingController();
+  final prodDescController = TextEditingController();
   final prodPriceController = TextEditingController();
   final amountController = TextEditingController();
   final management = Management();
@@ -40,7 +41,7 @@ class _EditPageState extends State<EditPage> {
                             child: Image.file(File(management.selectedImage!))),
                       )
                     : const Icon(
-                        Icons.add,
+                        Icons.image,
                         size: 100,
                       ),
                 const SizedBox(
@@ -90,16 +91,27 @@ class _EditPageState extends State<EditPage> {
                   height: 30,
                 ),
                 SizedBox(
+                  width: 250,
+                  child: TextField(
+                    controller: prodDescController,
+                    decoration:const InputDecoration(hintText: 'Descrição do produto'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
                     width: 250,
                     child: IconButton(
                         onPressed: () async{
-                          Product product = Product(
+                          Product product = Product(description: prodDescController.text,
                               name: prodNameController.text,
                               imagem: management.selectedImage!,
                               price: prodPriceController.text,
                               amount: amountController.text);
                           final resp = await management.addProduct(product);
                           if(resp == true){
+                            prodDescController.clear();
                             prodNameController.clear();
                             prodPriceController.clear();
                             amountController.clear();

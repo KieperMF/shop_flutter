@@ -30,9 +30,13 @@ class _ProductPageState extends State<ProductPage> {
             const SizedBox(
               height: 20,
             ),
+            Text('${productSelected!.description}'),
+            const SizedBox(
+              height: 20,
+            ),
             TextButton(onPressed: (){
               management.addCart(productSelected!);
-            }, child: const Text('Adiconar ao Carrinho'))
+            }, child: const Text('Adiconar ao Carrinho')),
           ],
         ),
       ),

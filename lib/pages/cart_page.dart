@@ -48,7 +48,7 @@ class _CartPageState extends State<CartPage> {
                                 child: Image.network('${management.cartProducts[index].imagem}'),
                               ),
                               const SizedBox(height: 20,),
-                              Text('${management.cartProducts[index].name}')
+                              Text('${management.cartProducts[index].name}'),
                             ],
                           );
                         })
