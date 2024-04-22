@@ -34,9 +34,19 @@ class _ProductPageState extends State<ProductPage> {
             const SizedBox(
               height: 20,
             ),
-            TextButton(onPressed: (){
-              management.addCart(productSelected!);
-            }, child: const Text('Adiconar ao Carrinho')),
+            TextButton(
+                onPressed: () async {
+                  final resp = await management.addCart(productSelected!);
+                  if (resp == true) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Produto adicionado ao carrinho')));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content:
+                            Text('Erro ao adicionar produto ao carrinho')));
+                  }
+                },
+                child: const Text('Adiconar ao Carrinho')),
           ],
         ),
       ),

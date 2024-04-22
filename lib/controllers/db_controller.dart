@@ -5,7 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/models/product_model.dart';
+
 Product? productSelected;
+
 class DbController {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   User? user;
@@ -85,7 +87,7 @@ class DbController {
   void saveProfilePic(String? profilePic) async {
     String uid = user!.uid;
     String? imageUrl = await uploadProfilePic(File('$profilePic'), uid);
-    
+
     if (imageUrl != null) {
       final CollectionReference profilesRef =
           FirebaseFirestore.instance.collection('profiles');
@@ -100,7 +102,8 @@ class DbController {
 
   //adiciona o produto para o firebase
   addProduct(Product product) async {
-    product.imagem = await uploadProductPic(File('${product.imagem}'), product.name);
+    product.imagem =
+        await uploadProductPic(File('${product.imagem}'), product.name);
     try {
       final storageRef =
           FirebaseFirestore.instance.collection('products').doc(product.name);
@@ -114,7 +117,6 @@ class DbController {
     }
   }
 
-  
   //subir a imagem do produto para o firestorage e depois retorna para o firestore database
   uploadProductPic(File imageFile, String? name) async {
     try {
@@ -135,8 +137,9 @@ class DbController {
   //pega a imagem do usuario
   getUserPic() async {
     String? responseImage;
-    final storage =
-        FirebaseFirestore.instance.collection('profiles').doc(firebaseAuth.currentUser!.uid);
+    final storage = FirebaseFirestore.instance
+        .collection('profiles')
+        .doc(firebaseAuth.currentUser!.uid);
 
     try {
       await storage.get().then(
@@ -153,35 +156,52 @@ class DbController {
     }
   }
 
-  //pega o usuario atual logado 
+  //pega o usuario atual logado
   getUser() {
     user = firebaseAuth.currentUser;
     return firebaseAuth.currentUser;
   }
 
   //adiciona o produto ao carrinho
-  addToCart(Product product)async{
-    try{
-      final ref = FirebaseFirestore.instance.collection('cartProducts_${firebaseAuth.currentUser!.uid}').doc(product.name);
+  _addToCart(Product product) async {
+    try {
+      final ref = FirebaseFirestore.instance
+          .collection(
+              'cartProducts_${firebaseAuth.currentUser!.displayName}_${firebaseAuth.currentUser!.uid}')
+          .doc(product.name);
       await ref.set(product.toMap());
       return true;
-    }catch(e){
+    } catch (e) {
+      debugPrint('erro add to cart $e');
+      return false;
+    }
+  }
+
+  addToCartVerif(Product product) async {
+    try {
+      final resp = await _addToCart(product);
+      debugPrint('foi $resp');
+      return resp;
+    } catch (e) {
       return false;
     }
   }
 
   //deleta o produto do carrinho do usuario
-  deleteFromCart(Product product)async{
-    try{
-      final ref = FirebaseFirestore.instance.collection('cartProducts_${firebaseAuth.currentUser!.uid}').doc(product.name);
+  deleteFromCart(Product product) async {
+    try {
+      final ref = FirebaseFirestore.instance
+          .collection(
+              'cartProducts_${firebaseAuth.currentUser!.displayName}_${firebaseAuth.currentUser!.uid}')
+          .doc(product.name);
       await ref.delete();
       return true;
-    }catch(e){
+    } catch (e) {
       return false;
     }
   }
 
-  //pega todos os produtos da database
+  //pegar todos os produtos da database
   getProduct() async {
     List<Product> products = [];
     Product? product;
@@ -202,12 +222,13 @@ class DbController {
     }
   }
 
-  getCartProducts()async{
+  getCartProducts() async {
     List<Product> products = [];
     Product? product;
-    final CollectionReference ref = FirebaseFirestore.instance.collection('cartProducts_${firebaseAuth.currentUser!.uid}');
-    try{
-       await ref.get().then((querySnapshot){
+    final CollectionReference ref = FirebaseFirestore.instance.collection(
+        'cartProducts_${firebaseAuth.currentUser!.displayName}_${firebaseAuth.currentUser!.uid}');
+    try {
+      await ref.get().then((querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
           final prodResp = docSnapshot.data() as Map;
           product = Product.fromJson(prodResp);
@@ -216,7 +237,7 @@ class DbController {
       });
       debugPrint('sucesso ao pegar produtos');
       return products;
-    }catch(e){
+    } catch (e) {
       debugPrint('erro pegar produtos do carrinho: $e');
     }
   }

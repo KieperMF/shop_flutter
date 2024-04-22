@@ -69,7 +69,8 @@ abstract class ManagementBase with Store {
   }
 
   @action
-  addCart(Product product){
-    service.addToCart(product);
+  addCart(Product product)async{
+    final resp = await service.addToCartVerif(product);
+    return resp;
   }
 }
