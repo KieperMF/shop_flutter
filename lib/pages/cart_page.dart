@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
@@ -37,19 +39,55 @@ class _CartPageState extends State<CartPage> {
                 management.cartProducts.isEmpty
                     ? const Text('Nenhum item no carrinho')
                     : ListView.builder(
-                      shrinkWrap: true,
+                        shrinkWrap: true,
                         itemCount: management.cartProducts.length,
                         itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              SizedBox(
-                                height: 200,
-                                width: 200,
-                                child: Image.network('${management.cartProducts[index].imagem}'),
-                              ),
-                              const SizedBox(height: 20,),
-                              Text('${management.cartProducts[index].name}'),
-                            ],
+                          return Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    IconButton(
+                                        onPressed: () async {
+                                          final resp = await management
+                                              .deleteFromCart(management
+                                                  .cartProducts[index]);
+                                          if (resp == true) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                                    content: Text(
+                                                        'Produto deletado do carrinho')));
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                                    content: Text(
+                                                        'Erro ao deletar produto')));
+                                          }
+                                        },
+                                        icon: const Icon(
+                                            Icons.disabled_by_default_rounded)),
+                                    SizedBox(
+                                      height: 200,
+                                      width: 200,
+                                      child: Image.network(
+                                          '${management.cartProducts[index].imagem}'),
+                                    ),
+                                    SizedBox(
+                                      width: 140,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                              '${management.cartProducts[index].name}'),
+                                          Text(
+                                              '\$${management.cartProducts[index].price}'),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           );
                         })
               ],

@@ -180,7 +180,6 @@ class DbController {
   addToCartVerif(Product product) async {
     try {
       final resp = await _addToCart(product);
-      debugPrint('foi $resp');
       return resp;
     } catch (e) {
       return false;
@@ -235,7 +234,6 @@ class DbController {
           products.add(product!);
         }
       });
-      debugPrint('sucesso ao pegar produtos');
       return products;
     } catch (e) {
       debugPrint('erro pegar produtos do carrinho: $e');

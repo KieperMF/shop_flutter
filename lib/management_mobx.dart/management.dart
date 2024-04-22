@@ -15,7 +15,7 @@ abstract class ManagementBase with Store {
 
   @observable
   User? user;
-  
+
   @observable
   String? selectedImage;
 
@@ -32,45 +32,55 @@ abstract class ManagementBase with Store {
   String? userPic;
 
   @action
-  Future pickImageFromGallery() async{
-    final responseImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future pickImageFromGallery() async {
+    final responseImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImage = responseImage!.path;
     service.saveProfilePic(selectedImage);
   }
 
   @action
-  Future pickProductFromGallery() async{
-    final responseImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future pickProductFromGallery() async {
+    final responseImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImage = responseImage!.path;
   }
 
   @action
-  getCartProducts()async{
+  getCartProducts() async {
     List<Product> prods = await service.getCartProducts();
     cartProducts.addAll(prods);
   }
 
   @action
-  getUser() async{
+  getUser() async {
     user = service.getUser();
     userPic = await service.getUserPic();
   }
 
   @action
-  addProduct(Product product) async{
-      final resp = await service.addProduct(product);
-      return resp;
+  addProduct(Product product) async {
+    final resp = await service.addProduct(product);
+    return resp;
   }
 
   @action
-  getProduct()async{
+  getProduct() async {
     List<Product> prods = await service.getProduct();
     products.addAll(prods);
   }
 
   @action
-  addCart(Product product)async{
+  addCart(Product product) async {
     final resp = await service.addToCartVerif(product);
+    return resp;
+  }
+
+  @action
+  deleteFromCart(Product product) async {
+    final resp = await service.deleteFromCart(product);
+    cartProducts.clear();
+    getCartProducts();
     return resp;
   }
 }
