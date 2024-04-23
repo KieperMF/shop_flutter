@@ -81,13 +81,13 @@ class _LoginPageState extends State<LoginPage> {
                     emailController.clear();
                     passwordController.clear();
                     ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Credenciais Inválidas')));
+                        const SnackBar(content: Text('Credenciais Inválidas'), duration: Duration(milliseconds: 700),));
                   } else {
                     management.getUser();
                     emailController.clear();
                     passwordController.clear();
                     ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Logado com sucesso')));
+                        const SnackBar(content: Text('Logado com sucesso'), duration: Duration(milliseconds: 700),));
                     Future.delayed(const Duration(milliseconds: 1000), () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const NavigationBarWidget()));

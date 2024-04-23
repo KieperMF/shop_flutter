@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -94,7 +96,8 @@ class _EditPageState extends State<EditPage> {
                   width: 250,
                   child: TextField(
                     controller: prodDescController,
-                    decoration:const InputDecoration(hintText: 'Descrição do produto'),
+                    decoration:
+                        const InputDecoration(hintText: 'Descrição do produto'),
                   ),
                 ),
                 const SizedBox(
@@ -103,23 +106,32 @@ class _EditPageState extends State<EditPage> {
                 SizedBox(
                     width: 250,
                     child: IconButton(
-                        onPressed: () async{
-                          Product product = Product(description: prodDescController.text,
+                        onPressed: () async {
+                          Product product = Product(
+                              description: prodDescController.text,
                               name: prodNameController.text,
                               imagem: management.selectedImage!,
                               price: prodPriceController.text,
                               amount: amountController.text);
                           final resp = await management.addProduct(product);
-                          if(resp == true){
+                          if (resp == true) {
                             prodDescController.clear();
                             prodNameController.clear();
                             prodPriceController.clear();
                             amountController.clear();
                             management.selectedImage = null;
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Produto adicionado com sucesso')));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('Produto adicionado com sucesso'),
+                              duration: Duration(milliseconds: 700),
+                            ));
                             await management.getProduct();
-                          }else{
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Erro ao adicionar produto')));
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('Erro ao adicionar produto'),
+                              duration: Duration(milliseconds: 700),
+                            ));
                           }
                         },
                         icon: const Icon(Icons.add))),

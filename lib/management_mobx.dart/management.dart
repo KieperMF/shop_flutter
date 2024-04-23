@@ -17,6 +17,9 @@ abstract class ManagementBase with Store {
   User? user;
 
   @observable
+  double total = 0;
+
+  @observable
   String? selectedImage;
 
   @observable
@@ -48,7 +51,12 @@ abstract class ManagementBase with Store {
 
   @action
   getCartProducts() async {
+    int i =0;
     List<Product> prods = await service.getCartProducts();
+    while(prods.length > i){
+      total = double.parse(prods[i].price!) + total;
+      i++;
+    }
     cartProducts.addAll(prods);
   }
 
@@ -80,6 +88,7 @@ abstract class ManagementBase with Store {
   deleteFromCart(Product product) async {
     final resp = await service.deleteFromCart(product);
     cartProducts.clear();
+    total = 0;
     getCartProducts();
     return resp;
   }

@@ -13,6 +13,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   final management = Management();
+  double total = 0;
 
   @override
   void initState() {
@@ -36,6 +37,13 @@ class _CartPageState extends State<CartPage> {
           child: Center(
             child: Column(
               children: [
+                Text(
+                  'Subtotal: \$${management.total}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 management.cartProducts.isEmpty
                     ? const Text('Nenhum item no carrinho')
                     : ListView.builder(
@@ -50,20 +58,67 @@ class _CartPageState extends State<CartPage> {
                                   children: [
                                     IconButton(
                                         onPressed: () async {
-                                          final resp = await management
-                                              .deleteFromCart(management
-                                                  .cartProducts[index]);
-                                          if (resp == true) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    content: Text(
-                                                        'Produto deletado do carrinho')));
-                                          } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    content: Text(
-                                                        'Erro ao deletar produto')));
-                                          }
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      "Remover Produto do Carrinho?", style: TextStyle(fontSize: 18),),
+                                                  actions: [
+                                                    TextButton(
+                                                      style:
+                                                          TextButton.styleFrom(
+                                                        textStyle:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .labelLarge,
+                                                      ),
+                                                      child: const Text(
+                                                          'Cancelar', style: TextStyle(color: Colors.black),),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      style:
+                                                          TextButton.styleFrom(
+                                                        textStyle:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .labelLarge,
+                                                      ),
+                                                      child:
+                                                          const Text('Remover', style: TextStyle(color: Colors.black),),
+                                                      onPressed: () async {
+                                                        final resp =
+                                                            await management
+                                                                .deleteFromCart(
+                                                                    management
+                                                                            .cartProducts[
+                                                                        index]);
+                                                        if (resp == true) {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                                  const SnackBar(
+                                                                      content: Text(
+                                                                          'Produto deletado do carrinho'), duration: Duration(milliseconds: 700),));
+                                                        } else {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                                  const SnackBar(
+                                                                      content: Text(
+                                                                          'Erro ao deletar produto'), duration: Duration(milliseconds: 700),));
+                                                        }
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              });
                                         },
                                         icon: const Icon(
                                             Icons.disabled_by_default_rounded)),

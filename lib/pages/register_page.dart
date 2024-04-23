@@ -138,12 +138,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         password: passwordController.text);
                     if (response == false) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Erro ao cadastrar')));
+                          const SnackBar(content: Text('Erro ao cadastrar'), duration: Duration(milliseconds: 700),));
                     } else {
                       nameController.clear();
                       emailController.clear();
                       passwordController.clear();
                       management.getUser();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Cadastrado com Sucesso'), duration: Duration(milliseconds: 700),));
                       Future.delayed(const Duration(milliseconds: 1000), () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const NavigationBarWidget()));

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/controllers/db_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
@@ -34,19 +36,24 @@ class _ProductPageState extends State<ProductPage> {
             const SizedBox(
               height: 20,
             ),
-            TextButton(
+            ElevatedButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.yellow)),
                 onPressed: () async {
                   final resp = await management.addCart(productSelected!);
                   if (resp == true) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Produto adicionado ao carrinho')));
+                        content: Text('Produto adicionado ao carrinho'), duration: Duration(milliseconds: 700),));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content:
-                            Text('Erro ao adicionar produto ao carrinho')));
+                            Text('Erro ao adicionar produto ao carrinho'), duration: Duration(milliseconds: 700),));
                   }
                 },
-                child: const Text('Adiconar ao Carrinho')),
+                child: const Text(
+                  'Adiconar ao Carrinho',
+                  style: TextStyle(color: Colors.black),
+                )),
           ],
         ),
       ),
