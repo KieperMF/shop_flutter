@@ -59,24 +59,54 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: CircularProgressIndicator())
                   : management.userPic != null
                       ? SizedBox(
-                          width: 100,
-                          height: 100,
+                          width: 150,
+                          height: 150,
                           child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Image.network(management.userPic!)),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Image.network(
+                              management.userPic!,
+                              height: 150,
+                            ),
+                          ),
                         )
                       : const SizedBox(
-                          height: 100,
-                          width: 100,
+                          height: 150,
+                          width: 150,
                           child: Icon(
                             Icons.account_box,
-                            size: 100,
+                            size: 150,
                           ),
                         ),
               const SizedBox(
                 height: 20,
               ),
+              if(management.userPic != null)...[
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: const Text("Trocar foto de perfil?"),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Cancelar')),
+                              TextButton(
+                                  onPressed: () {
+                                    management.pickImageFromGallery();
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Confirmar')),
+                            ],
+                          );
+                        });
+                  },
+                  icon: const Icon(Icons.edit)),
+              ],
               if (management.userPic == null) ...[
                 SizedBox(
                   child: TextButton(

@@ -66,8 +66,24 @@ class DbController {
     }
   }
 
+  saveChangedPic(String? profilePic) async{
+    String uid = user!.uid;
+    String? imageUrl = await _uploadProfilePic(File('$profilePic'), uid);
+
+    if (imageUrl != null) {
+      final CollectionReference profilesRef =
+          FirebaseFirestore.instance.collection('profiles');
+      try {
+        await profilesRef.doc(uid).update({'profile_pic': imageUrl});
+        debugPrint('Sucesso ao mudar a imagem de perfil');
+      } catch (e) {
+        debugPrint('Erro ao mudar a imagem de perfil: $e');
+      }
+    }
+  }
+
   //sobe imagem para e depois retorna a url dela
-  uploadProfilePic(File imageFile, String userId) async {
+  _uploadProfilePic(File imageFile, String userId) async {
     try {
       Reference storageReference =
           FirebaseStorage.instance.ref().child('profile_pics').child(userId);
@@ -86,7 +102,7 @@ class DbController {
   //salva a imagem do usuario
   void saveProfilePic(String? profilePic) async {
     String uid = user!.uid;
-    String? imageUrl = await uploadProfilePic(File('$profilePic'), uid);
+    String? imageUrl = await _uploadProfilePic(File('$profilePic'), uid);
 
     if (imageUrl != null) {
       final CollectionReference profilesRef =
@@ -103,7 +119,7 @@ class DbController {
   //adiciona o produto para o firebase
   addProduct(Product product) async {
     product.imagem =
-        await uploadProductPic(File('${product.imagem}'), product.name);
+        await _uploadProductPic(File('${product.imagem}'), product.name);
     try {
       final storageRef =
           FirebaseFirestore.instance.collection('products').doc(product.name);
@@ -118,7 +134,7 @@ class DbController {
   }
 
   //subir a imagem do produto para o firestorage e depois retorna para o firestore database
-  uploadProductPic(File imageFile, String? name) async {
+  _uploadProductPic(File imageFile, String? name) async {
     try {
       Reference storageReference =
           FirebaseStorage.instance.ref().child('product_pic').child(name!);

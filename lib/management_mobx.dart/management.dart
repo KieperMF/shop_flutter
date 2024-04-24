@@ -43,6 +43,15 @@ abstract class ManagementBase with Store {
   }
 
   @action
+  changeUserPic()async{
+    final responseImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    selectedImage = responseImage!.path;
+    await service.saveChangedPic(selectedImage);
+    userPic = await service.getUserPic();
+  }
+
+  @action
   Future pickProductFromGallery() async {
     final responseImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
