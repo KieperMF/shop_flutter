@@ -107,34 +107,59 @@ class _EditPageState extends State<EditPage> {
                     width: 250,
                     child: IconButton(
                         onPressed: () async {
-                          int idP = await management.getProductLength() + 1;
-                          Product product = Product(
-                              id: idP,
-                              description: prodDescController.text,
-                              name: prodNameController.text,
-                              imagem: management.selectedImage!,
-                              price: prodPriceController.text,
-                              amount: amountController.text);
-                          final resp = await management.addProduct(product);
-                          if (resp == true) {
-                            prodDescController.clear();
-                            prodNameController.clear();
-                            prodPriceController.clear();
-                            amountController.clear();
-                            management.selectedImage = null;
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text('Produto adicionado com sucesso'),
-                              duration: Duration(milliseconds: 700),
-                            ));
-                            await management.getProduct();
-                          } else {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text('Erro ao adicionar produto'),
-                              duration: Duration(milliseconds: 700),
-                            ));
-                          }
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text(
+                                      "Deseja Adicionar esse produto?"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("Cancelar")),
+                                    TextButton(
+                                        onPressed: () async {
+                                          int idP = await management
+                                                  .getProductLength() + 1;
+                                          Product product = Product(
+                                              id: idP,
+                                              description:prodDescController.text,
+                                              name: prodNameController.text,
+                                              imagem: management.selectedImage!,
+                                              price: prodPriceController.text,
+                                              amount: amountController.text);
+                                          final resp = await management
+                                              .addProduct(product);
+                                          if (resp == true) {
+                                            prodDescController.clear();
+                                            prodNameController.clear();
+                                            prodPriceController.clear();
+                                            amountController.clear();
+                                            management.selectedImage = null;
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Produto adicionado com sucesso'),
+                                              duration:
+                                                  Duration(milliseconds: 700),
+                                            ));
+                                            await management.getProduct();
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Erro ao adicionar produto'),
+                                              duration:
+                                                  Duration(milliseconds: 700),
+                                            ));
+                                          }
+                                        },
+                                        child: const Text("Adicionar"))
+                                  ],
+                                );
+                              });
                         },
                         icon: const Icon(Icons.add))),
               ],
