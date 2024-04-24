@@ -118,11 +118,13 @@ class DbController {
 
   //adiciona o produto para o firebase
   addProduct(Product product) async {
+    
+    String id = product.id.toString();
     product.imagem =
-        await _uploadProductPic(File('${product.imagem}'), product.name);
+        await _uploadProductPic(File('${product.imagem}'), product);
     try {
       final storageRef =
-          FirebaseFirestore.instance.collection('products').doc(product.name);
+          FirebaseFirestore.instance.collection('products').doc('${product.name} $id');
       await storageRef.set(
         product.toMap(),
       );
@@ -134,10 +136,10 @@ class DbController {
   }
 
   //subir a imagem do produto para o firestorage e depois retorna para o firestore database
-  _uploadProductPic(File imageFile, String? name) async {
+  _uploadProductPic(File imageFile, Product product) async {
     try {
       Reference storageReference =
-          FirebaseStorage.instance.ref().child('product_pic').child(name!);
+          FirebaseStorage.instance.ref().child('product_pic').child('${product.name}-${product.id!.toString()}');
 
       UploadTask uploadTask = storageReference.putFile(imageFile);
       TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
@@ -184,7 +186,7 @@ class DbController {
       final ref = FirebaseFirestore.instance
           .collection(
               'cartProducts_${firebaseAuth.currentUser!.displayName}_${firebaseAuth.currentUser!.uid}')
-          .doc(product.name);
+          .doc('${product.name} ${product.id!.toString()}');
       await ref.set(product.toMap());
       return true;
     } catch (e) {
@@ -208,7 +210,7 @@ class DbController {
       final ref = FirebaseFirestore.instance
           .collection(
               'cartProducts_${firebaseAuth.currentUser!.displayName}_${firebaseAuth.currentUser!.uid}')
-          .doc(product.name);
+          .doc('${product.name} ${product.id!}');
       await ref.delete();
       return true;
     } catch (e) {

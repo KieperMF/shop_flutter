@@ -107,7 +107,9 @@ class _EditPageState extends State<EditPage> {
                     width: 250,
                     child: IconButton(
                         onPressed: () async {
+                          int idP = await management.getProductLength() + 1;
                           Product product = Product(
+                              id: idP,
                               description: prodDescController.text,
                               name: prodNameController.text,
                               imagem: management.selectedImage!,

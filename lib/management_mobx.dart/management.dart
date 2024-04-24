@@ -87,6 +87,13 @@ abstract class ManagementBase with Store {
     products.addAll(prods);
   }
 
+  getProductLength() async {
+    List<Product> prods = await service.getProduct();
+    products.addAll(prods);
+    int i = prods.length;
+    return i;
+  }
+
   @action
   addCart(Product product) async {
     final resp = await service.addToCartVerif(product);

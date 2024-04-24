@@ -63,7 +63,10 @@ class _CartPageState extends State<CartPage> {
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
                                                   title: const Text(
-                                                      "Remover Produto do Carrinho?", style: TextStyle(fontSize: 18),),
+                                                    "Remover Produto do Carrinho?",
+                                                    style:
+                                                        TextStyle(fontSize: 18),
+                                                  ),
                                                   actions: [
                                                     TextButton(
                                                       style:
@@ -74,22 +77,23 @@ class _CartPageState extends State<CartPage> {
                                                                 .labelLarge,
                                                       ),
                                                       child: const Text(
-                                                          'Cancelar', style: TextStyle(color: Colors.black),),
+                                                        'Cancelar',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black),
+                                                      ),
                                                       onPressed: () {
                                                         Navigator.of(context)
                                                             .pop();
                                                       },
                                                     ),
                                                     TextButton(
-                                                      style:
-                                                          TextButton.styleFrom(
-                                                        textStyle:
-                                                            Theme.of(context)
-                                                                .textTheme
-                                                                .labelLarge,
+                                                      child: const Text(
+                                                        'Remover',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black),
                                                       ),
-                                                      child:
-                                                          const Text('Remover', style: TextStyle(color: Colors.black),),
                                                       onPressed: () async {
                                                         final resp =
                                                             await management
@@ -102,15 +106,23 @@ class _CartPageState extends State<CartPage> {
                                                                   context)
                                                               .showSnackBar(
                                                                   const SnackBar(
-                                                                      content: Text(
-                                                                          'Produto deletado do carrinho'), duration: Duration(milliseconds: 700),));
+                                                            content: Text(
+                                                                'Produto deletado do carrinho'),
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    700),
+                                                          ));
                                                         } else {
                                                           ScaffoldMessenger.of(
                                                                   context)
                                                               .showSnackBar(
                                                                   const SnackBar(
-                                                                      content: Text(
-                                                                          'Erro ao deletar produto'), duration: Duration(milliseconds: 700),));
+                                                            content: Text(
+                                                                'Erro ao deletar produto'),
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    700),
+                                                          ));
                                                         }
                                                         Navigator.of(context)
                                                             .pop();
@@ -123,10 +135,12 @@ class _CartPageState extends State<CartPage> {
                                         icon: const Icon(
                                             Icons.disabled_by_default_rounded)),
                                     SizedBox(
-                                      height: 200,
-                                      width: 200,
-                                      child: Image.network(
-                                          '${management.cartProducts[index].imagem}'),
+                                      height: 150,
+                                      width: 150,
+                                      child: Container(
+                                        decoration: BoxDecoration(color: Colors.grey.shade400),
+                                        child: Image.network(
+                                          '${management.cartProducts[index].imagem}'),)
                                     ),
                                     SizedBox(
                                       width: 140,
