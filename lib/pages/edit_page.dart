@@ -145,6 +145,7 @@ class _EditPageState extends State<EditPage> {
                                               duration:
                                                   Duration(milliseconds: 700),
                                             ));
+                                            Navigator.of(context).pop();
                                             await management.getProduct();
                                           } else {
                                             ScaffoldMessenger.of(context)
