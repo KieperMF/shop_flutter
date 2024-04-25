@@ -31,7 +31,8 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:Colors.cyan.shade400,
+          shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+          backgroundColor:Colors.grey[500],
           automaticallyImplyLeading: false,
           title: const Text('Home Page'),
         ),
@@ -41,12 +42,7 @@ class _HomePageState extends State<HomePage> {
               return Center(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: 200,
-                      child: ListView.builder(
+                    ListView.builder(
                           shrinkWrap: true,
                           physics:const BouncingScrollPhysics(),
                           itemCount: management.products.length,
@@ -65,10 +61,11 @@ class _HomePageState extends State<HomePage> {
                                           '${management.products.elementAt(index).imagem}'),
                                     )),
                                 Text('${management.products.elementAt(index).name}'),
+                                const Padding(padding: EdgeInsets.all(10),
+                                child: Divider(),)
                               ],
                             );
                           }),
-                    )
                   ],
                 ),
               );

@@ -38,10 +38,15 @@ class _ProductPageState extends State<ProductPage> {
               const SizedBox(
                 height: 20,
               ),
+              SizedBox(width: 300, child: Text('Quantidade disponível: ${productSelected!.amount}',style:const TextStyle(fontSize: 14),)),
+              const SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                   style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.yellow)),
                   onPressed: () async {
+                    productSelected!.amount = '1';
                     final resp = await management.addCart(productSelected!);
                     if (resp == true) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

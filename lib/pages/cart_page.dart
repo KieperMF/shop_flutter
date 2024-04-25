@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
+import 'package:shop_flutter/models/product_model.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -23,6 +24,7 @@ class _CartPageState extends State<CartPage> {
 
   loadProducts() async {
     await management.getCartProducts();
+    await management.getProduct();
   }
 
   @override
@@ -30,6 +32,8 @@ class _CartPageState extends State<CartPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+          backgroundColor: Colors.grey[500],
           automaticallyImplyLeading: false,
           title: const Text('Carrinho'),
         ),
@@ -38,40 +42,46 @@ class _CartPageState extends State<CartPage> {
             child: Center(
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Text(
-                    'Subtotal: \$${management.total}',
+                    'Subtotal: \$${management.total.toStringAsFixed(2)}',
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   management.cartProducts.isEmpty
                       ? const Text('Nenhum item no carrinho')
                       : ListView.builder(
                           shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
                           itemCount: management.cartProducts.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(10),
                               child: Column(
                                 children: [
+                                  const Divider(),
                                   Row(
                                     children: [
                                       IconButton(
                                           onPressed: () async {
                                             showDialog(
                                                 context: context,
-                                                builder: (BuildContext context) {
+                                                builder:
+                                                    (BuildContext context) {
                                                   return AlertDialog(
                                                     title: const Text(
                                                       "Remover Produto do Carrinho?",
-                                                      style:
-                                                          TextStyle(fontSize: 18),
+                                                      style: TextStyle(
+                                                          fontSize: 18),
                                                     ),
                                                     actions: [
                                                       TextButton(
-                                                        style:
-                                                            TextButton.styleFrom(
+                                                        style: TextButton
+                                                            .styleFrom(
                                                           textStyle:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -96,15 +106,14 @@ class _CartPageState extends State<CartPage> {
                                                                   Colors.black),
                                                         ),
                                                         onPressed: () async {
-                                                          final resp =
-                                                              await management
-                                                                  .deleteFromCart(
-                                                                      management
-                                                                              .cartProducts[
-                                                                          index]);
+                                                          final resp = await management
+                                                              .deleteFromCart(
+                                                                  management
+                                                                          .cartProducts[
+                                                                      index]);
                                                           if (resp == true) {
-                                                            ScaffoldMessenger.of(
-                                                                    context)
+                                                            ScaffoldMessenger
+                                                                    .of(context)
                                                                 .showSnackBar(
                                                                     const SnackBar(
                                                               content: Text(
@@ -114,8 +123,8 @@ class _CartPageState extends State<CartPage> {
                                                                       700),
                                                             ));
                                                           } else {
-                                                            ScaffoldMessenger.of(
-                                                                    context)
+                                                            ScaffoldMessenger
+                                                                    .of(context)
                                                                 .showSnackBar(
                                                                     const SnackBar(
                                                               content: Text(
@@ -133,16 +142,17 @@ class _CartPageState extends State<CartPage> {
                                                   );
                                                 });
                                           },
-                                          icon: const Icon(
-                                              Icons.disabled_by_default_rounded)),
+                                          icon: const Icon(Icons
+                                              .disabled_by_default_rounded)),
                                       SizedBox(
-                                        height: 150,
-                                        width: 150,
-                                        child: Container(
-                                          decoration: BoxDecoration(color: Colors.grey.shade400),
-                                          child: Image.network(
-                                            '${management.cartProducts[index].imagem}'),)
-                                      ),
+                                          height: 150,
+                                          width: 150,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey.shade400),
+                                            child: Image.network(
+                                                '${management.cartProducts[index].imagem}'),
+                                          )),
                                       SizedBox(
                                         width: 140,
                                         child: Column(
@@ -151,6 +161,68 @@ class _CartPageState extends State<CartPage> {
                                                 '${management.cartProducts[index].name}'),
                                             Text(
                                                 '\$${management.cartProducts[index].price}'),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 25),
+                                              child: Container(
+                                                height: 40,
+                                                width: 107,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                    border: Border.all(
+                                                        color: Colors.black)),
+                                                child: Row(
+                                                  children: [
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          int amount = int.parse(
+                                                              '${management.cartProducts[index].amount}');
+                                                          if (amount >= 2) {
+                                                            management
+                                                                .amountSelectionDecrement(
+                                                                    index);
+                                                          }
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.remove,
+                                                            size: 16)),
+                                                    Text(
+                                                        "${management.cartProducts[index].amount}"),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          for (Product product
+                                                              in management
+                                                                  .products) {
+                                                            if (management
+                                                                    .cartProducts[
+                                                                        index]
+                                                                    .name ==
+                                                                product.name) {
+                                                              int count = int.parse(
+                                                                  '${product.amount}');
+                                                              if (int.parse(
+                                                                      '${management.cartProducts[index].amount}') <
+                                                                  count) {
+                                                                management
+                                                                    .amountSelectionIncrement(
+                                                                        index);
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        icon: const Icon(
+                                                          Icons.add,
+                                                          size: 16,
+                                                        )),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),

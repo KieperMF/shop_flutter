@@ -30,7 +30,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
       body: bodyController(selectedItem),
       bottomNavigationBar: BottomNavigationBar(currentIndex: selectedItem,
       backgroundColor: Colors.grey[500],
-      fixedColor: Colors.indigo.shade500,
+      fixedColor: Colors.blueAccent.shade700,
       items:const[
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined,),

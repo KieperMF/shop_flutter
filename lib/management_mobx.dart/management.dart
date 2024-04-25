@@ -35,6 +35,22 @@ abstract class ManagementBase with Store {
   String? userPic;
 
   @action
+  amountSelectionIncrement( int index)async{
+    int increment = int.parse('${cartProducts[index].amount}') + 1;
+    cartProducts[index].amount = increment.toString();
+    total = double.parse('${cartProducts[index].price}') + total;
+    await service.addToCartVerif(cartProducts[index]);
+  }
+
+  @action
+  amountSelectionDecrement( int index)async{
+    int decrement = int.parse('${cartProducts[index].amount}') - 1;
+    cartProducts[index].amount = decrement.toString();
+    total = total - double.parse('${cartProducts[index].price}');
+    await service.addToCartVerif(cartProducts[index]);
+  }
+
+  @action
   Future pickImageFromGallery() async {
     final responseImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -63,7 +79,7 @@ abstract class ManagementBase with Store {
     int i =0;
     List<Product> prods = await service.getCartProducts();
     while(prods.length > i){
-      total = double.parse(prods[i].price!) + total;
+      total = (double.parse(prods[i].price!) *  int.parse(prods[i].amount!)) + total;
       i++;
     }
     cartProducts.addAll(prods);
