@@ -160,7 +160,7 @@ class _CartPageState extends State<CartPage> {
                                             Text(
                                                 '${management.cartProducts[index].name}'),
                                             Text(
-                                                '\$${management.cartProducts[index].price}'),
+                                                '\$${double.parse('${management.cartProducts[index].price}').toStringAsFixed(2)}'),
                                             const SizedBox(
                                               height: 10,
                                             ),

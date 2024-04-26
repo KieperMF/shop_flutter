@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shop_flutter/controllers/db_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 
@@ -20,7 +19,11 @@ class _ProductPageState extends State<ProductPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Produto'),
+          shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+          backgroundColor: Colors.grey[500],
+          title: const Text(
+            'Produto',
+          ),
         ),
         body: Center(
           child: Column(
@@ -30,17 +33,39 @@ class _ProductPageState extends State<ProductPage> {
                 width: 200,
                 child: Image.network("${productSelected!.imagem}"),
               ),
-              Text('${productSelected!.name}', style:const TextStyle(fontSize: 18),),
-              const SizedBox(
-                height: 20,
+              Text(
+                '${productSelected!.name}',
+                style: const TextStyle(fontSize: 20),
               ),
-              SizedBox(width: 300, child: Text('${productSelected!.description}',style:const TextStyle(fontSize: 14),)),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
-              SizedBox(width: 300, child: Text('Quantidade disponível: ${productSelected!.amount}',style:const TextStyle(fontSize: 14),)),
+              SizedBox(
+                  width: 300,
+                  child: Text(
+                    '${productSelected!.description}',
+                    style: const TextStyle(fontSize: 18),
+                  )),
               const SizedBox(
-                height: 20,
+                height: 10,
+              ),
+              SizedBox(
+                  width: 300,
+                  child: Text(
+                    'Preço: ${double.parse('${productSelected!.price}').toStringAsFixed(2)}',
+                    style: const TextStyle(fontSize: 18),
+                  )),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                  width: 300,
+                  child: Text(
+                    'Quantidade disponível: ${productSelected!.amount}',
+                    style: const TextStyle(fontSize: 18),
+                  )),
+              const SizedBox(
+                height: 10,
               ),
               ElevatedButton(
                   style: const ButtonStyle(
@@ -50,11 +75,14 @@ class _ProductPageState extends State<ProductPage> {
                     final resp = await management.addCart(productSelected!);
                     if (resp == true) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Produto adicionado ao carrinho'), duration: Duration(milliseconds: 700),));
+                        content: Text('Produto adicionado ao carrinho'),
+                        duration: Duration(milliseconds: 700),
+                      ));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content:
-                              Text('Erro ao adicionar produto ao carrinho'), duration: Duration(milliseconds: 700),));
+                        content: Text('Erro ao adicionar produto ao carrinho'),
+                        duration: Duration(milliseconds: 700),
+                      ));
                     }
                   },
                   child: const Text(

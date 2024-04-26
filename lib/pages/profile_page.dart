@@ -34,6 +34,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+          backgroundColor: Colors.grey[500],
           automaticallyImplyLeading: false,
           title: const Text('Perfil'),
           actions: [
