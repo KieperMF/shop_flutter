@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/firebase_options.dart';
 import 'package:shop_flutter/pages/login_page.dart';
-import 'package:shop_flutter/pages/navigation_bar.dart';
+import 'package:shop_flutter/page_controller/navigation_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -8,19 +8,21 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/models/product_model.dart';
 
-class EditPage extends StatefulWidget {
-  const EditPage({super.key});
+class AddProductPage extends StatefulWidget {
+  const AddProductPage({super.key});
 
   @override
-  State<EditPage> createState() => _EditPageState();
+  State<AddProductPage> createState() => _AddProductPageState();
 }
 
-class _EditPageState extends State<EditPage> {
+class _AddProductPageState extends State<AddProductPage> {
   final prodNameController = TextEditingController();
   final prodDescController = TextEditingController();
   final prodPriceController = TextEditingController();
   final amountController = TextEditingController();
   final management = Management();
+  List<String> list = <String>['Eletrônico', 'Games', 'Periférico'];
+  String dropdownValue = 'Eletrônico';
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,8 @@ class _EditPageState extends State<EditPage> {
                           child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5)),
-                              child: Image.file(File(management.selectedImage!))),
+                              child:
+                                  Image.file(File(management.selectedImage!))),
                         )
                       : const Icon(
                           Icons.image,
@@ -86,8 +89,8 @@ class _EditPageState extends State<EditPage> {
                     width: 250,
                     child: TextField(
                       controller: amountController,
-                      decoration:
-                          const InputDecoration(hintText: 'Informe a quantidade'),
+                      decoration: const InputDecoration(
+                          hintText: 'Informe a quantidade'),
                     ),
                   ),
                   const SizedBox(
@@ -97,12 +100,33 @@ class _EditPageState extends State<EditPage> {
                     width: 250,
                     child: TextField(
                       controller: prodDescController,
-                      decoration:
-                          const InputDecoration(hintText: 'Descrição do produto'),
+                      decoration: const InputDecoration(
+                          hintText: 'Descrição do produto'),
                     ),
                   ),
                   const SizedBox(
                     height: 30,
+                  ),
+                  DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: const Icon(Icons.arrow_downward),
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.black),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.black,
+                    ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        dropdownValue = value!;
+                      });
+                    },
+                    items: list.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                   SizedBox(
                       width: 250,
@@ -123,12 +147,16 @@ class _EditPageState extends State<EditPage> {
                                       TextButton(
                                           onPressed: () async {
                                             int idP = await management
-                                                    .getProductLength() + 1;
+                                                    .getProductLength() +
+                                                1;
                                             Product product = Product(
+                                              category: dropdownValue,
                                                 id: idP,
-                                                description:prodDescController.text,
+                                                description:
+                                                    prodDescController.text,
                                                 name: prodNameController.text,
-                                                imagem: management.selectedImage!,
+                                                imagem:
+                                                    management.selectedImage!,
                                                 price: prodPriceController.text,
                                                 amount: amountController.text);
                                             final resp = await management

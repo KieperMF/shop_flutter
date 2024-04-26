@@ -169,7 +169,7 @@ class _CartPageState extends State<CartPage> {
                                                   left: 25),
                                               child: Container(
                                                 height: 40,
-                                                width: 107,
+                                                width: 110,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(

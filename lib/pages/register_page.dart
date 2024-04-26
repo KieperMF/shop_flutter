@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/controllers/db_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
-import 'package:shop_flutter/pages/navigation_bar.dart';
+import 'package:shop_flutter/page_controller/navigation_bar.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

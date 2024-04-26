@@ -26,6 +26,15 @@ abstract class ManagementBase with Store {
   ObservableList<Product> products = ObservableList.of([]);
 
   @observable
+  ObservableList<Product> eletrocicProducts = ObservableList.of([]);
+
+  @observable
+  ObservableList<Product> gameProducts = ObservableList.of([]);
+
+  @observable
+  ObservableList<Product> peripheralsProducts = ObservableList.of([]);
+
+  @observable
   ObservableList<Product> cartProducts = ObservableList.of([]);
 
   @observable
@@ -100,6 +109,15 @@ abstract class ManagementBase with Store {
   @action
   getProduct() async {
     List<Product> prods = await service.getProduct();
+    for(Product prod in prods){
+      if(prod.category == 'Eletrônico'){
+        eletrocicProducts.add(prod);
+      }else if(prod.category == 'Games'){
+        gameProducts.add(prod);
+      }else{
+        peripheralsProducts.add(prod);
+      }
+    }
     products.addAll(prods);
   }
 

@@ -28,6 +28,7 @@ class _ProductPageState extends State<ProductPage> {
         body: Center(
           child: Column(
             children: [
+              const SizedBox(height: 16,),
               SizedBox(
                 height: 200,
                 width: 200,

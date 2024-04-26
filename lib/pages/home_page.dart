@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          backgroundColor:Colors.grey[500],
+          backgroundColor: Colors.grey[500],
           automaticallyImplyLeading: false,
           title: const Text('Home Page'),
         ),
@@ -42,30 +42,147 @@ class _HomePageState extends State<HomePage> {
               return Center(
                 child: Column(
                   children: [
-                    ListView.builder(
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            "Eletrônicos",
+                            style: TextStyle(fontSize: 20),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 210,
+                      child: ListView.builder(
                           shrinkWrap: true,
-                          physics:const BouncingScrollPhysics(),
-                          itemCount: management.products.length,
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: management.eletrocicProducts.length,
                           itemBuilder: (context, index) {
                             return Column(
-                              children: [
+                              children: [                             
                                 SizedBox(
-                                    height: 200,
+                                    height: 180,
+                                    width: 200,
                                     child: TextButton(
-                                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white)),
-                                      onPressed: (){
-                                        productSelected = management.products.elementAt(index);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductPage()));
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white)),
+                                      onPressed: () {
+                                        productSelected = management
+                                            .eletrocicProducts
+                                            .elementAt(index);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ProductPage()));
                                       },
                                       child: Image.network(
-                                          '${management.products.elementAt(index).imagem}'),
+                                          '${management.eletrocicProducts.elementAt(index).imagem}'),
                                     )),
-                                Text('${management.products.elementAt(index).name}'),
-                                const Padding(padding: EdgeInsets.all(10),
-                                child: Divider(),)
+                                Text(
+                                    '${management.eletrocicProducts.elementAt(index).name}'),
+                                    
                               ],
                             );
                           }),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            "Games",
+                            style: TextStyle(fontSize: 20),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 210,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: management.gameProducts.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [                             
+                                SizedBox(
+                                    height: 180,
+                                    width: 200,
+                                    child: TextButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white)),
+                                      onPressed: () {
+                                        productSelected = management
+                                            .gameProducts
+                                            .elementAt(index);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ProductPage()));
+                                      },
+                                      child: Image.network(
+                                          '${management.gameProducts.elementAt(index).imagem}'),
+                                    )),
+                                Text(
+                                    '${management.gameProducts.elementAt(index).name}'),
+                                    
+                              ],
+                            );
+                          }),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            "Periféricos",
+                            style: TextStyle(fontSize: 20),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 210,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: management.peripheralsProducts.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [                             
+                                SizedBox(
+                                    height: 180,
+                                    width: 200,
+                                    child: TextButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white)),
+                                      onPressed: () {
+                                        productSelected = management
+                                            .peripheralsProducts
+                                            .elementAt(index);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ProductPage()));
+                                      },
+                                      child: Image.network(
+                                          '${management.peripheralsProducts.elementAt(index).imagem}'),
+                                    )),
+                                Text(
+                                    '${management.peripheralsProducts.elementAt(index).name}'),
+                                    
+                              ],
+                            );
+                          }),
+                    ),
                   ],
                 ),
               );
