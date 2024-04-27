@@ -33,15 +33,15 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
       fixedColor: Colors.blueAccent.shade700,
       items:const[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined,),
+          icon: Icon(Icons.home,),
           label: 'Home',
         ),
           BottomNavigationBarItem(
-          icon:  Icon(Icons.shopping_basket_outlined),
+          icon:  Icon(Icons.shopping_basket),
           label: 'Carrinho',
         ),
         BottomNavigationBarItem(
-          icon:  Icon(Icons.person_2_outlined),
+          icon:  Icon(Icons.person),
           label: 'Perfil',
         ),
       ],

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/controllers/db_controller.dart';
@@ -14,7 +13,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final management = Management();
-  File? selectedImage;
 
   @override
   void initState() {
@@ -42,6 +40,7 @@ class _HomePageState extends State<HomePage> {
               return Center(
                 child: Column(
                   children: [
+                    const SizedBox(height: 15,),
                     const Padding(
                       padding: EdgeInsets.only(left: 16),
                       child: Align(
@@ -89,6 +88,7 @@ class _HomePageState extends State<HomePage> {
                             );
                           }),
                     ),
+                    const SizedBox(height: 15,),
                     const Padding(
                       padding: EdgeInsets.only(left: 16),
                       child: Align(
@@ -131,7 +131,6 @@ class _HomePageState extends State<HomePage> {
                                     )),
                                 Text(
                                     '${management.gameProducts.elementAt(index).name}'),
-                                    
                               ],
                             );
                           }),
