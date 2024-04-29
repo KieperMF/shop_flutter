@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/pages/add_product_page.dart';
+import 'package:shop_flutter/pages/edit_product_page.dart';
 import 'package:shop_flutter/pages/login_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -155,7 +156,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProductPage()));
+                          },
                           style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(
                                   const Size(200, 37))),

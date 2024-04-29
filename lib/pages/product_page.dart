@@ -34,16 +34,6 @@ class _ProductPageState extends State<ProductPage> {
           title: const Text(
             'Produto',
           ),
-          actions: [
-            if (management.user!.uid == management.adminId) ...[
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: IconButton(onPressed: (){
-
-                    }, icon:const Icon(Icons.edit)),
-                  )
-                ],
-          ],
         ),
         body: Center(
           child: Column(

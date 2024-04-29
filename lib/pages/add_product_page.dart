@@ -78,6 +78,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     width: 250,
                     child: TextField(
                       controller: prodPriceController,
+                      keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                           hintText: 'Informe o preço do produto'),
                     ),
