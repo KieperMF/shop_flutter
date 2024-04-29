@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_flutter/controllers/db_controller.dart';
+import 'package:shop_flutter/controllers/user_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/page_controller/navigation_bar.dart';
 import 'package:shop_flutter/pages/register_page.dart';
@@ -15,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool obscurePassword = true;
-  final service = DbController();
+  final service = UserController();
   final management = Management();
 
   @override

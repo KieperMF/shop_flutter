@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:shop_flutter/controllers/db_controller.dart';
+import 'package:shop_flutter/controllers/product_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 
 class ProductPage extends StatefulWidget {
@@ -14,6 +14,16 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   final management = Management();
 
+   @override
+  void initState() {
+    super.initState();
+    load();
+  }
+
+  Future<void> load() async {
+    await management.getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,6 +34,16 @@ class _ProductPageState extends State<ProductPage> {
           title: const Text(
             'Produto',
           ),
+          actions: [
+            if (management.user!.uid == management.adminId) ...[
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: IconButton(onPressed: (){
+
+                    }, icon:const Icon(Icons.edit)),
+                  )
+                ],
+          ],
         ),
         body: Center(
           child: Column(
@@ -90,6 +110,7 @@ class _ProductPageState extends State<ProductPage> {
                     'Adiconar ao Carrinho',
                     style: TextStyle(color: Colors.black),
                   )),
+                
             ],
           ),
         ),

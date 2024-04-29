@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:shop_flutter/controllers/db_controller.dart';
+import 'package:shop_flutter/controllers/product_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/pages/product_page.dart';
 

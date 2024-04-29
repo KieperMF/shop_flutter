@@ -144,15 +144,22 @@ class _CartPageState extends State<CartPage> {
                                           },
                                           icon: const Icon(Icons
                                               .disabled_by_default_rounded)),
-                                      SizedBox(
-                                          height: 150,
-                                          width: 150,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.grey.shade400),
-                                            child: Image.network(
-                                                '${management.cartProducts[index].imagem}'),
-                                          )),
+                                      management.cartProducts[index].imagem !=
+                                              null
+                                          ? SizedBox(
+                                              height: 150,
+                                              width: 150,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        Colors.grey.shade400),
+                                                child: Image.network(
+                                                    '${management.cartProducts[index].imagem}'),
+                                              ))
+                                          : const Padding(
+                                              padding: EdgeInsets.all(32),
+                                              child:
+                                                  CircularProgressIndicator()),
                                       SizedBox(
                                         width: 140,
                                         child: Column(

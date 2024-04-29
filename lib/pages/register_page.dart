@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_flutter/controllers/db_controller.dart';
+import 'package:shop_flutter/controllers/user_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/page_controller/navigation_bar.dart';
 
@@ -17,7 +17,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final management = Management();
   bool obscurePassword = true;
-  final service = DbController();
+  final service = UserController();
 
   @override
   Widget build(BuildContext context) {

@@ -86,35 +86,37 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                if(management.userPic != null)...[
-                  IconButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: const Text("Trocar foto de perfil?"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Cancelar')),
-                                TextButton(
-                                    onPressed: () {
-                                      management.pickImageFromGallery();
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Confirmar')),
-                              ],
-                            );
-                          });
-                    },
-                    icon: const Icon(Icons.edit)),
+                if (management.userPic != null) ...[
+                  ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: const Text("Trocar foto de perfil?"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Cancelar')),
+                                  TextButton(
+                                      onPressed: () {
+                                        management.pickImageFromGallery();
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Confirmar')),
+                                ],
+                              );
+                            });
+                      },
+                      child: const Text(
+                        'Trocar foto de perfil',
+                      )),
                 ],
                 if (management.userPic == null) ...[
                   SizedBox(
-                    child: TextButton(
+                    child: ElevatedButton(
                         onPressed: () {
                           management.pickImageFromGallery();
                         },
@@ -136,7 +138,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.only(left: 20),
                     child: Align(
                       alignment: Alignment.bottomLeft,
-                      child: TextButton(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            minimumSize:
+                                MaterialStateProperty.all(const Size(200, 37))),
                         child: const Text('Adicionar Produtos'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -145,15 +150,18 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  /*Padding(
-                    padding:const EdgeInsets.only(left: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
                     child: Align(
                       alignment: Alignment.bottomLeft,
-                      child: TextButton(onPressed: (){
-                        
-                      }, child: const Text('Editar Produtos')),
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all(
+                                  const Size(200, 37))),
+                          child: const Text("Editar Produtos")),
                     ),
-                  )*/
+                  )
                 ],
               ],
             ),

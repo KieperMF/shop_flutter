@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shop_flutter/controllers/db_controller.dart';
+import 'package:shop_flutter/controllers/product_controller.dart';
+import 'package:shop_flutter/controllers/user_controller.dart';
 import 'package:shop_flutter/models/product_model.dart';
 
 part 'management.g.dart';
@@ -9,7 +10,8 @@ part 'management.g.dart';
 class Management = ManagementBase with _$Management;
 
 abstract class ManagementBase with Store {
-  final service = DbController();
+  final productService = ProductController();
+  final userService = UserController();
 
   String adminId = "qElhXpEEuvTPWxU8jaK1pU9Zojf2";
 
@@ -48,7 +50,7 @@ abstract class ManagementBase with Store {
     int increment = int.parse('${cartProducts[index].amount}') + 1;
     cartProducts[index].amount = increment.toString();
     total = double.parse('${cartProducts[index].price}') + total;
-    await service.addToCartVerif(cartProducts[index]);
+    await productService.addToCartVerif(cartProducts[index]);
   }
 
   @action
@@ -56,7 +58,7 @@ abstract class ManagementBase with Store {
     int decrement = int.parse('${cartProducts[index].amount}') - 1;
     cartProducts[index].amount = decrement.toString();
     total = total - double.parse('${cartProducts[index].price}');
-    await service.addToCartVerif(cartProducts[index]);
+    await productService.addToCartVerif(cartProducts[index]);
   }
 
   @action
@@ -64,7 +66,7 @@ abstract class ManagementBase with Store {
     final responseImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImage = responseImage!.path;
-    service.saveProfilePic(selectedImage);
+    userService.saveProfilePic(selectedImage);
   }
 
   @action
@@ -72,8 +74,8 @@ abstract class ManagementBase with Store {
     final responseImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImage = responseImage!.path;
-    await service.saveChangedPic(selectedImage);
-    userPic = await service.getUserPic();
+    await userService.saveChangedPic(selectedImage);
+    userPic = await userService.getUserPic();
   }
 
   @action
@@ -86,7 +88,7 @@ abstract class ManagementBase with Store {
   @action
   getCartProducts() async {
     int i =0;
-    List<Product> prods = await service.getCartProducts();
+    List<Product> prods = await productService.getCartProducts();
     while(prods.length > i){
       total = (double.parse(prods[i].price!) *  int.parse(prods[i].amount!)) + total;
       i++;
@@ -96,19 +98,19 @@ abstract class ManagementBase with Store {
 
   @action
   getUser() async {
-    user = service.getUser();
-    userPic = await service.getUserPic();
+    user = userService.getUser();
+    userPic = await userService.getUserPic();
   }
 
   @action
   addProduct(Product product) async {
-    final resp = await service.addProduct(product);
+    final resp = await productService.addProduct(product);
     return resp;
   }
 
   @action
   getProduct() async {
-    List<Product> prods = await service.getProduct();
+    List<Product> prods = await productService.getProduct();
     for(Product prod in prods){
       if(prod.category == 'Eletrônico'){
         eletrocicProducts.add(prod);
@@ -122,7 +124,7 @@ abstract class ManagementBase with Store {
   }
 
   getProductLength() async {
-    List<Product> prods = await service.getProduct();
+    List<Product> prods = await productService.getProduct();
     products.addAll(prods);
     int i = prods.length;
     return i;
@@ -130,13 +132,13 @@ abstract class ManagementBase with Store {
 
   @action
   addCart(Product product) async {
-    final resp = await service.addToCartVerif(product);
+    final resp = await productService.addToCartVerif(product);
     return resp;
   }
 
   @action
   deleteFromCart(Product product) async {
-    final resp = await service.deleteFromCart(product);
+    final resp = await productService.deleteFromCart(product);
     cartProducts.clear();
     total = 0;
     getCartProducts();
