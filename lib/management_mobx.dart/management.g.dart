@@ -207,8 +207,9 @@ mixin _$Management on ManagementBase, Store {
       AsyncAction('ManagementBase.updateProduct', context: context);
 
   @override
-  Future updateProduct(Product product) {
-    return _$updateProductAsyncAction.run(() => super.updateProduct(product));
+  Future updateProduct(Product product, Product prodVerif) {
+    return _$updateProductAsyncAction
+        .run(() => super.updateProduct(product, prodVerif));
   }
 
   late final _$changeUserPicAsyncAction =

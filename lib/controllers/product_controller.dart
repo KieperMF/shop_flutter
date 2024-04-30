@@ -33,11 +33,13 @@ class ProductController {
     try {
       final ref = FirebaseFirestore.instance
           .collection(
-              'cartProducts_${firebaseAuth.currentUser!.displayName}_${firebaseAuth.currentUser!.uid}')
+              'products')
           .doc('${product.name} ${product.id!}');
-      await ref.set(product.toMap());
+      await ref.update(product.toMap());
+      debugPrint('foi');
       return true;
     } catch (e) {
+      debugPrint('erro update $e');
       return false;
     }
   }

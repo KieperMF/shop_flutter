@@ -77,8 +77,16 @@ abstract class ManagementBase with Store {
   }
 
   @action
-  updateProduct(Product product)async{
-    await productService.updateProduct(product);
+  updateProduct(Product productUP, Product prodVerif)async{
+    productUP.name = productUP.name != '' ? productUP.name : prodVerif.name;
+    productUP.price = productUP.price != '' ? productUP.price : prodVerif.price;
+    productUP.amount = productUP.amount != '' ? productUP.amount : prodVerif.amount;
+    productUP.description = productUP.description != '' ? productUP.description : prodVerif.description;
+    productUP.category = productUP.category != '' ? productUP.category : prodVerif.category;
+    productUP.id = prodVerif.id;
+    productUP.imagem = prodVerif.imagem;
+    final resp = await productService.updateProduct(productUP);
+    return resp;
   }
 
   @action
