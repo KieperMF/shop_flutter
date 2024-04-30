@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shop_flutter/controllers/product_controller.dart';
@@ -152,8 +153,11 @@ abstract class ManagementBase with Store {
     final resp = await productService.deleteFromCart(product);
     cartProducts.removeAt(index);
     int i =0;
+    total = 0;
     while(cartProducts.length > i){
-      total = (double.parse(cartProducts[i].price!) * int.parse(cartProducts[i].amount!));
+      debugPrint(cartProducts[i].price!);
+      debugPrint(cartProducts[i].amount!);
+      total = (double.parse(cartProducts[i].price!) * int.parse(cartProducts[i].amount!)) + total;
       i++;
     }
     if(cartProducts.isEmpty){
