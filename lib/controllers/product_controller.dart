@@ -42,6 +42,7 @@ class ProductController {
     }
   }
 
+  //metodo para deletar um produto especifico
   deleteProduct(Product product)async{
     try {
       final ref = FirebaseFirestore.instance
