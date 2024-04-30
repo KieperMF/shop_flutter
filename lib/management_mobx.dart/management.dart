@@ -70,6 +70,17 @@ abstract class ManagementBase with Store {
   }
 
   @action
+  deleteProduct(Product product, int index)async{
+    await productService.deleteProduct(product);
+    products.removeAt(index);
+  }
+
+  @action
+  updateProduct(Product product)async{
+    await productService.updateProduct(product);
+  }
+
+  @action
   changeUserPic()async{
     final responseImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -90,7 +101,7 @@ abstract class ManagementBase with Store {
     int i =0;
     List<Product> prods = await productService.getCartProducts();
     while(prods.length > i){
-      total = (double.parse(prods[i].price!) *  int.parse(prods[i].amount!)) + total;
+      total = (double.parse(prods[i].price!) * int.parse(prods[i].amount!)) + total;
       i++;
     }
     cartProducts.addAll(prods);
@@ -137,11 +148,17 @@ abstract class ManagementBase with Store {
   }
 
   @action
-  deleteFromCart(Product product) async {
+  deleteFromCart(Product product, int index) async {
     final resp = await productService.deleteFromCart(product);
-    cartProducts.clear();
-    total = 0;
-    getCartProducts();
+    cartProducts.removeAt(index);
+    int i =0;
+    while(cartProducts.length > i){
+      total = (double.parse(cartProducts[i].price!) * int.parse(cartProducts[i].amount!));
+      i++;
+    }
+    if(cartProducts.isEmpty){
+      total = 0;
+    }
     return resp;
   }
 }

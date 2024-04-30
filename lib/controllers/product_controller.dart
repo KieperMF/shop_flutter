@@ -13,7 +13,6 @@ class ProductController {
 
   //adiciona o produto para o firebase
   addProduct(Product product) async {
-    
     String id = product.id.toString();
     product.imagem =
         await _uploadProductPic(File('${product.imagem}'), product);
@@ -27,6 +26,32 @@ class ProductController {
       return true;
     } catch (e) {
       debugPrint('erro adicionar produto: $e');
+    }
+  }
+
+  updateProduct(Product product)async{
+    try {
+      final ref = FirebaseFirestore.instance
+          .collection(
+              'cartProducts_${firebaseAuth.currentUser!.displayName}_${firebaseAuth.currentUser!.uid}')
+          .doc('${product.name} ${product.id!}');
+      await ref.set(product.toMap());
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  deleteProduct(Product product)async{
+    try {
+      final ref = FirebaseFirestore.instance
+          .collection(
+              'products')
+          .doc('${product.name} ${product.id!}');
+      await ref.delete();
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 

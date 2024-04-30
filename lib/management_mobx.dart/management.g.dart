@@ -71,6 +71,54 @@ mixin _$Management on ManagementBase, Store {
     });
   }
 
+  late final _$eletrocicProductsAtom =
+      Atom(name: 'ManagementBase.eletrocicProducts', context: context);
+
+  @override
+  ObservableList<Product> get eletrocicProducts {
+    _$eletrocicProductsAtom.reportRead();
+    return super.eletrocicProducts;
+  }
+
+  @override
+  set eletrocicProducts(ObservableList<Product> value) {
+    _$eletrocicProductsAtom.reportWrite(value, super.eletrocicProducts, () {
+      super.eletrocicProducts = value;
+    });
+  }
+
+  late final _$gameProductsAtom =
+      Atom(name: 'ManagementBase.gameProducts', context: context);
+
+  @override
+  ObservableList<Product> get gameProducts {
+    _$gameProductsAtom.reportRead();
+    return super.gameProducts;
+  }
+
+  @override
+  set gameProducts(ObservableList<Product> value) {
+    _$gameProductsAtom.reportWrite(value, super.gameProducts, () {
+      super.gameProducts = value;
+    });
+  }
+
+  late final _$peripheralsProductsAtom =
+      Atom(name: 'ManagementBase.peripheralsProducts', context: context);
+
+  @override
+  ObservableList<Product> get peripheralsProducts {
+    _$peripheralsProductsAtom.reportRead();
+    return super.peripheralsProducts;
+  }
+
+  @override
+  set peripheralsProducts(ObservableList<Product> value) {
+    _$peripheralsProductsAtom.reportWrite(value, super.peripheralsProducts, () {
+      super.peripheralsProducts = value;
+    });
+  }
+
   late final _$cartProductsAtom =
       Atom(name: 'ManagementBase.cartProducts', context: context);
 
@@ -146,6 +194,23 @@ mixin _$Management on ManagementBase, Store {
         .run(() => super.pickImageFromGallery());
   }
 
+  late final _$deleteProductAsyncAction =
+      AsyncAction('ManagementBase.deleteProduct', context: context);
+
+  @override
+  Future deleteProduct(Product product, int index) {
+    return _$deleteProductAsyncAction
+        .run(() => super.deleteProduct(product, index));
+  }
+
+  late final _$updateProductAsyncAction =
+      AsyncAction('ManagementBase.updateProduct', context: context);
+
+  @override
+  Future updateProduct(Product product) {
+    return _$updateProductAsyncAction.run(() => super.updateProduct(product));
+  }
+
   late final _$changeUserPicAsyncAction =
       AsyncAction('ManagementBase.changeUserPic', context: context);
 
@@ -207,8 +272,9 @@ mixin _$Management on ManagementBase, Store {
       AsyncAction('ManagementBase.deleteFromCart', context: context);
 
   @override
-  Future deleteFromCart(Product product) {
-    return _$deleteFromCartAsyncAction.run(() => super.deleteFromCart(product));
+  Future deleteFromCart(Product product, int index) {
+    return _$deleteFromCartAsyncAction
+        .run(() => super.deleteFromCart(product, index));
   }
 
   @override
@@ -218,6 +284,9 @@ user: ${user},
 total: ${total},
 selectedImage: ${selectedImage},
 products: ${products},
+eletrocicProducts: ${eletrocicProducts},
+gameProducts: ${gameProducts},
+peripheralsProducts: ${peripheralsProducts},
 cartProducts: ${cartProducts},
 product: ${product},
 userPic: ${userPic}

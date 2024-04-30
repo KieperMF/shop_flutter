@@ -110,7 +110,7 @@ class _CartPageState extends State<CartPage> {
                                                               .deleteFromCart(
                                                                   management
                                                                           .cartProducts[
-                                                                      index]);
+                                                                      index], index);
                                                           if (resp == true) {
                                                             ScaffoldMessenger
                                                                     .of(context)
