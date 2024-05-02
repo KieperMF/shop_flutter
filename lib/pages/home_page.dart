@@ -49,6 +49,53 @@ class _HomePageState extends State<HomePage> {
                       child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
+                            "Livros",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 210,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: management.books.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Row(
+                                children: [                             
+                                  Container(
+                                    color: Colors.white,
+                                      height: 180,
+                                      width: 180,
+                                      child: TextButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.white)),
+                                        onPressed: () {
+                                          productSelected = management
+                                              .books
+                                              .elementAt(index);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ProductPage()));
+                                        },
+                                        child: Image.network(
+                                            '${management.books.elementAt(index).imagem}'),
+                                      )),
+                                ],
+                              ),
+                            );
+                          }),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
                             "Eletrônicos",
                             style: TextStyle(fontSize: 20, color: Colors.white),
                           )),
@@ -180,6 +227,53 @@ class _HomePageState extends State<HomePage> {
                                         },
                                         child: Image.network(
                                             '${management.peripheralsProducts.elementAt(index).imagem}'),
+                                      )),                                      
+                                ],
+                              ),
+                            );
+                          }),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            "Decoração",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 210,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: management.decorationProducts.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:const EdgeInsets.all(20),
+                              child: Row(
+                                children: [                             
+                                  Container(
+                                    color: Colors.white,
+                                      height: 180,
+                                      width: 180,
+                                      child: TextButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.white)),
+                                        onPressed: () {
+                                          productSelected = management
+                                              .decorationProducts
+                                              .elementAt(index);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ProductPage()));
+                                        },
+                                        child: Image.network(
+                                            '${management.decorationProducts.elementAt(index).imagem}'),
                                       )),                                      
                                 ],
                               ),

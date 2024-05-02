@@ -13,6 +13,8 @@ class EditProductPage extends StatefulWidget {
 class _EditProductPageState extends State<EditProductPage> {
   final managment = Management();
   List<bool> _isVisibleList = [];
+  List<String> list = <String>['Eletrônico', 'Games', 'Periférico', 'Decoração', 'Livros'];
+  String dropdownValue = 'Eletrônico';
   List<TextEditingController> nameController = [];
   List<TextEditingController> priceController = [];
   List<TextEditingController> amountController = [];
@@ -81,7 +83,7 @@ class _EditProductPageState extends State<EditProductPage> {
                                 GestureDetector(
                                   onTap: () => _toggleVisibility(index),
                                   child: Container(
-                                      color: Colors.blueGrey[700],
+                                      color: Colors.blueGrey[600],
                                       padding: const EdgeInsets.all(12),
                                       child: Padding(
                                         padding: const EdgeInsets.all(16),
@@ -117,7 +119,7 @@ class _EditProductPageState extends State<EditProductPage> {
                                   curve: Curves.easeInOut,
                                   height: _isVisibleList[index] ? 470 : 0,
                                   width: 450,
-                                  color: Colors.blueGrey[700],
+                                  color: Colors.blueGrey[600],
                                   child: _isVisibleList[index]
                                       ? SingleChildScrollView(
                                           physics:
@@ -210,25 +212,28 @@ class _EditProductPageState extends State<EditProductPage> {
                                             ),
                                             SizedBox(
                                               width: 180,
-                                              child: TextField(
-                                                cursorColor: Colors.white,
-                                                controller:
-                                                    categoryController[index],
-                                                style: const TextStyle(
-                                                    color: Colors.white),
-                                                decoration: InputDecoration(
-                                                    hintText:
-                                                        'Categoria: ${managment.products[index].category}',
-                                                    hintStyle: const TextStyle(
-                                                        color: Colors.white),
-                                                    border: const OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.black),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    16)))),
+                                              child: DropdownButton<String>(
+                                                value: managment.products[index].category,
+                                                icon: const Icon(Icons.arrow_downward, color: Colors.black,),
+                                                elevation: 16,
+                                                style: const TextStyle(color: Colors.black),
+                                                underline: Container(
+                                                  height: 2,
+                                                  color: Colors.black,
+                                                ),
+                                                onChanged: (String? value) {
+                                                  setState(() {
+                                                    dropdownValue = value!;
+                                                    managment.products[index].category = value;
+                                                    print('${managment.products[index].category}');
+                                                  });
+                                                },
+                                                items: list.map<DropdownMenuItem<String>>((String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text(value),
+                                                  );
+                                                }).toList(),
                                               ),
                                             ),
                                             const SizedBox(
@@ -339,8 +344,8 @@ class _EditProductPageState extends State<EditProductPage> {
                                                             name:nameController[index].text,
                                                             price:priceController[index].text);
                                                         await managment.updateProduct(product,managment.products[index]);
-                                                        disposeControllers();
                                                         if (await managment.updateProduct(product,managment.products[index])) {
+                                                          managment.getProduct();
                                                           ScaffoldMessenger.of(context).
                                                           showSnackBar(const SnackBar(
                                                             duration: Duration(milliseconds: 500), 
@@ -376,12 +381,5 @@ class _EditProductPageState extends State<EditProductPage> {
             ), );
       }),
     );
-  }
-  disposeControllers(){
-    nameController.clear();
-    amountController.clear();
-    priceController.clear();
-    descriptionController.clear();
-    categoryController.clear();
   }
 }

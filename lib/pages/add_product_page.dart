@@ -21,7 +21,7 @@ class _AddProductPageState extends State<AddProductPage> {
   final prodPriceController = TextEditingController();
   final amountController = TextEditingController();
   final management = Management();
-  List<String> list = <String>['Eletrônico', 'Games', 'Periférico'];
+  List<String> list = <String>['Eletrônico', 'Games', 'Periférico', 'Decoração', 'Livros'];
   String dropdownValue = 'Eletrônico';
 
   @override
@@ -78,7 +78,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     width: 250,
                     child: TextField(
                       controller: prodPriceController,
-                      keyboardType: TextInputType.number,
+                      keyboardType:const TextInputType.numberWithOptions(decimal: true),
                       decoration: const InputDecoration(
                           hintText: 'Informe o preço do produto'),
                     ),
@@ -90,6 +90,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     width: 250,
                     child: TextField(
                       controller: amountController,
+                      keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                           hintText: 'Informe a quantidade'),
                     ),

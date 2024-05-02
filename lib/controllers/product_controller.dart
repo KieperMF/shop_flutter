@@ -18,7 +18,7 @@ class ProductController {
         await _uploadProductPic(File('${product.imagem}'), product);
     try {
       final storageRef =
-          FirebaseFirestore.instance.collection('products').doc('${product.name} $id');
+          FirebaseFirestore.instance.collection('products').doc(id);
       await storageRef.set(
         product.toMap(),
       );
@@ -33,7 +33,7 @@ class ProductController {
       final ref = FirebaseFirestore.instance
           .collection(
               'products')
-          .doc('${product.name} ${product.id!}');
+          .doc('${product.id!}');
       await ref.update(product.toMap());
       return true;
     } catch (e) {
@@ -48,7 +48,7 @@ class ProductController {
       final ref = FirebaseFirestore.instance
           .collection(
               'products')
-          .doc('${product.name} ${product.id!}');
+          .doc('${product.id!}');
       await ref.delete();
       return true;
     } catch (e) {
@@ -60,7 +60,7 @@ class ProductController {
   _uploadProductPic(File imageFile, Product product) async {
     try {
       Reference storageReference =
-          FirebaseStorage.instance.ref().child('product_pic').child('${product.name}-${product.id!.toString()}');
+          FirebaseStorage.instance.ref().child('product_pic').child(product.id!.toString());
       UploadTask uploadTask = storageReference.putFile(imageFile);
       TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
 
@@ -78,7 +78,7 @@ class ProductController {
       final ref = FirebaseFirestore.instance
           .collection(
               'cartProducts_${firebaseAuth.currentUser!.displayName}_${firebaseAuth.currentUser!.uid}')
-          .doc('${product.name} ${product.id!.toString()}');
+          .doc(product.id!.toString());
       await ref.set(product.toMap());
       return true;
     } catch (e) {
@@ -102,7 +102,7 @@ class ProductController {
       final ref = FirebaseFirestore.instance
           .collection(
               'cartProducts_${firebaseAuth.currentUser!.displayName}_${firebaseAuth.currentUser!.uid}')
-          .doc('${product.name} ${product.id!}');
+          .doc('${product.id!}');
       await ref.delete();
       return true;
     } catch (e) {

@@ -36,9 +36,9 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         appBar: AppBar(
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          backgroundColor: Colors.grey[500],
+          backgroundColor: Colors.blueGrey[800],
           automaticallyImplyLeading: false,
-          title: const Text('Perfil'),
+          title: const Text('Perfil', style: TextStyle(color: Colors.white),),
           actions: [
             IconButton(
               onPressed: () {

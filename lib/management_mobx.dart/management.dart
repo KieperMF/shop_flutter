@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shop_flutter/controllers/product_controller.dart';
@@ -37,6 +38,12 @@ abstract class ManagementBase with Store {
   ObservableList<Product> peripheralsProducts = ObservableList.of([]);
 
   @observable
+  ObservableList<Product> decorationProducts = ObservableList.of([]);
+
+  @observable
+  ObservableList<Product> books = ObservableList.of([]);
+
+  @observable
   ObservableList<Product> cartProducts = ObservableList.of([]);
 
   @observable
@@ -67,6 +74,7 @@ abstract class ManagementBase with Store {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     selectedImage = responseImage!.path;
     userService.saveProfilePic(selectedImage);
+    userPic = await userService.getUserPic();
   }
 
   @action
@@ -76,15 +84,17 @@ abstract class ManagementBase with Store {
   }
 
   @action
-  updateProduct(Product productUP, Product prodVerif)async{
-    productUP.name = productUP.name != '' ? productUP.name : prodVerif.name;
-    productUP.price = productUP.price != '' ? productUP.price : prodVerif.price;
-    productUP.amount = productUP.amount != '' ? productUP.amount : prodVerif.amount;
-    productUP.description = productUP.description != '' ? productUP.description : prodVerif.description;
-    productUP.category = productUP.category != '' ? productUP.category : prodVerif.category;
-    productUP.id = prodVerif.id;
-    productUP.imagem = prodVerif.imagem;
-    final resp = await productService.updateProduct(productUP);
+  updateProduct(Product productTyped, Product prodFromIndex)async{
+    Product product =  Product();
+    product.name = productTyped.name != '' ? productTyped.name : prodFromIndex.name;
+    product.price = productTyped.price != '' ? productTyped.price : prodFromIndex.price;
+    product.amount = productTyped.amount != '' ? productTyped.amount : prodFromIndex.amount;
+    product.description = productTyped.description != '' ? productTyped.description : prodFromIndex.description;
+    debugPrint(product.description);
+    product.category = productTyped.category != '' ? productTyped.category : prodFromIndex.category;
+    product.id = prodFromIndex.id;
+    product.imagem = prodFromIndex.imagem;
+    final resp = await productService.updateProduct(product);
     return resp;
   }
 
@@ -135,8 +145,12 @@ abstract class ManagementBase with Store {
         eletrocicProducts.add(prod);
       }else if(prod.category == 'Games'){
         gameProducts.add(prod);
-      }else{
+      }else if(prod.category == 'Periférico'){
         peripheralsProducts.add(prod);
+      }else if(prod.category == 'Decoração'){
+        decorationProducts.add(prod);
+      }else{
+        books.add(prod);
       }
     }
     products.addAll(prods);

@@ -35,7 +35,7 @@ class _CartPageState extends State<CartPage> {
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
           backgroundColor: Colors.blueGrey[800],
           automaticallyImplyLeading: false,
-          title: const Text('Carrinho'),
+          title: const Text('Carrinho', style: TextStyle(color: Colors.white),),
         ),
         backgroundColor: Colors.blueGrey[700],
         body: Observer(builder: (context) {
@@ -48,7 +48,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                   Text(
                     'Subtotal: \$${management.total.toStringAsFixed(2)}',
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
                   ),
                   const SizedBox(
                     height: 10,
@@ -144,7 +144,7 @@ class _CartPageState extends State<CartPage> {
                                                 });
                                           },
                                           icon: const Icon(Icons
-                                              .disabled_by_default_rounded)),
+                                              .disabled_by_default_rounded, color: Colors.white,)),
                                       management.cartProducts[index].imagem !=
                                               null
                                           ? SizedBox(
