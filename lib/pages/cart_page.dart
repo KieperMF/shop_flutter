@@ -33,10 +33,11 @@ class _CartPageState extends State<CartPage> {
       child: Scaffold(
         appBar: AppBar(
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          backgroundColor: Colors.grey[500],
+          backgroundColor: Colors.blueGrey[800],
           automaticallyImplyLeading: false,
           title: const Text('Carrinho'),
         ),
+        backgroundColor: Colors.blueGrey[700],
         body: Observer(builder: (context) {
           return SingleChildScrollView(
             child: Center(
@@ -147,12 +148,12 @@ class _CartPageState extends State<CartPage> {
                                       management.cartProducts[index].imagem !=
                                               null
                                           ? SizedBox(
-                                              height: 150,
-                                              width: 150,
+                                              height: 160,
+                                              width: 160,
                                               child: Container(
-                                                decoration: BoxDecoration(
+                                                decoration:const BoxDecoration(
                                                     color:
-                                                        Colors.grey.shade400),
+                                                        Colors.white),
                                                 child: Image.network(
                                                     '${management.cartProducts[index].imagem}'),
                                               ))
@@ -160,14 +161,15 @@ class _CartPageState extends State<CartPage> {
                                               padding: EdgeInsets.all(32),
                                               child:
                                                   CircularProgressIndicator()),
+                                      const SizedBox(width: 16,),
                                       SizedBox(
                                         width: 140,
                                         child: Column(
                                           children: [
                                             Text(
-                                                '${management.cartProducts[index].name}'),
+                                                '${management.cartProducts[index].name}', style:const TextStyle(color: Colors.white),),
                                             Text(
-                                                '\$${double.parse('${management.cartProducts[index].price}').toStringAsFixed(2)}'),
+                                                '\$${double.parse('${management.cartProducts[index].price}').toStringAsFixed(2)}', style:const TextStyle(color: Colors.white),),
                                             const SizedBox(
                                               height: 10,
                                             ),
@@ -178,6 +180,7 @@ class _CartPageState extends State<CartPage> {
                                                 height: 40,
                                                 width: 110,
                                                 decoration: BoxDecoration(
+                                                  color: Colors.black,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             16),
@@ -197,9 +200,9 @@ class _CartPageState extends State<CartPage> {
                                                         },
                                                         icon: const Icon(
                                                             Icons.remove,
-                                                            size: 16)),
+                                                            size: 16, color: Colors.white,)),
                                                     Text(
-                                                        "${management.cartProducts[index].amount}"),
+                                                        "${management.cartProducts[index].amount}", style: TextStyle(color: Colors.white),),
                                                     IconButton(
                                                         onPressed: () {
                                                           for (Product product
@@ -225,6 +228,7 @@ class _CartPageState extends State<CartPage> {
                                                         icon: const Icon(
                                                           Icons.add,
                                                           size: 16,
+                                                          color: Colors.white,
                                                         )),
                                                   ],
                                                 ),

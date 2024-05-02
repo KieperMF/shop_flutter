@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/controllers/product_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
@@ -30,10 +32,11 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          backgroundColor: Colors.grey[500],
+          backgroundColor: Colors.blueGrey[800],
           automaticallyImplyLeading: false,
-          title: const Text('Home Page'),
+          title: const Text('Shop Flutter', style: TextStyle(color: Colors.white),),
         ),
+        backgroundColor: Colors.blueGrey[700],
         body: SingleChildScrollView(
           child: Observer(
             builder: (context) {
@@ -47,44 +50,44 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             "Eletrônicos",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           )),
                     ),
                     SizedBox(
                       height: 210,
                       child: ListView.builder(
-                          shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
                           itemCount: management.eletrocicProducts.length,
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [                             
-                                SizedBox(
-                                    height: 180,
-                                    width: 200,
-                                    child: TextButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.white)),
-                                      onPressed: () {
-                                        productSelected = management
-                                            .eletrocicProducts
-                                            .elementAt(index);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ProductPage()));
-                                      },
-                                      child: Image.network(
-                                          '${management.eletrocicProducts.elementAt(index).imagem}'),
-                                    )),
-                                Text(
-                                    '${management.eletrocicProducts.elementAt(index).name}'),
-                                    
-                              ],
+                            return Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Row(
+                                children: [                             
+                                  Container(
+                                    color: Colors.white,
+                                      height: 180,
+                                      width: 180,
+                                      child: TextButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.white)),
+                                        onPressed: () {
+                                          productSelected = management
+                                              .eletrocicProducts
+                                              .elementAt(index);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ProductPage()));
+                                        },
+                                        child: Image.network(
+                                            '${management.eletrocicProducts.elementAt(index).imagem}'),
+                                      )),
+                                ],
+                              ),
                             );
                           }),
                     ),
@@ -95,43 +98,44 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             "Games",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           )),
                     ),
                     SizedBox(
                       height: 210,
                       child: ListView.builder(
-                          shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
                           itemCount: management.gameProducts.length,
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [                             
-                                SizedBox(
-                                    height: 180,
-                                    width: 200,
-                                    child: TextButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.white)),
-                                      onPressed: () {
-                                        productSelected = management
-                                            .gameProducts
-                                            .elementAt(index);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ProductPage()));
-                                      },
-                                      child: Image.network(
-                                          '${management.gameProducts.elementAt(index).imagem}'),
-                                    )),
-                                Text(
-                                    '${management.gameProducts.elementAt(index).name}'),
-                              ],
+                            return Padding(
+                              padding:const EdgeInsets.all(20),
+                              child: Row(
+                                children: [                             
+                                  Container(
+                                    color: Colors.white,
+                                      height: 180,
+                                      width: 180,
+                                      child: TextButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.white)),
+                                        onPressed: () {
+                                          productSelected = management
+                                              .gameProducts
+                                              .elementAt(index);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ProductPage()));
+                                        },
+                                        child: Image.network(
+                                            '${management.gameProducts.elementAt(index).imagem}'),
+                                      )),
+                                ],
+                              ),
                             );
                           }),
                     ),
@@ -141,44 +145,44 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             "Periféricos",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 20, color: Colors.white),
                           )),
                     ),
                     SizedBox(
                       height: 210,
                       child: ListView.builder(
-                          shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
                           itemCount: management.peripheralsProducts.length,
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [                             
-                                SizedBox(
-                                    height: 180,
-                                    width: 200,
-                                    child: TextButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.white)),
-                                      onPressed: () {
-                                        productSelected = management
-                                            .peripheralsProducts
-                                            .elementAt(index);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ProductPage()));
-                                      },
-                                      child: Image.network(
-                                          '${management.peripheralsProducts.elementAt(index).imagem}'),
-                                    )),
-                                Text(
-                                    '${management.peripheralsProducts.elementAt(index).name}'),
-                                    
-                              ],
+                            return Padding(
+                              padding:const EdgeInsets.all(20),
+                              child: Row(
+                                children: [                             
+                                  Container(
+                                    color: Colors.white,
+                                      height: 180,
+                                      width: 180,
+                                      child: TextButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.white)),
+                                        onPressed: () {
+                                          productSelected = management
+                                              .peripheralsProducts
+                                              .elementAt(index);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ProductPage()));
+                                        },
+                                        child: Image.network(
+                                            '${management.peripheralsProducts.elementAt(index).imagem}'),
+                                      )),                                      
+                                ],
+                              ),
                             );
                           }),
                     ),

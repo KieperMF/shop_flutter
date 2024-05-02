@@ -29,8 +29,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
     return  Scaffold(
       body: bodyController(selectedItem),
       bottomNavigationBar: BottomNavigationBar(currentIndex: selectedItem,
-      backgroundColor: Colors.grey[500],
-      fixedColor: Colors.blueAccent.shade700,
+      backgroundColor: Colors.blueGrey[800],
+      fixedColor: Colors.white,
       items:const[
         BottomNavigationBarItem(
           icon: Icon(Icons.home,),
@@ -39,6 +39,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
           BottomNavigationBarItem(
           icon:  Icon(Icons.shopping_basket),
           label: 'Carrinho',
+          backgroundColor: Colors.white
         ),
         BottomNavigationBarItem(
           icon:  Icon(Icons.person),

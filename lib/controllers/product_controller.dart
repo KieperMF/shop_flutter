@@ -22,7 +22,6 @@ class ProductController {
       await storageRef.set(
         product.toMap(),
       );
-      debugPrint('sucesso adicionar produto');
       return true;
     } catch (e) {
       debugPrint('erro adicionar produto: $e');
@@ -36,7 +35,6 @@ class ProductController {
               'products')
           .doc('${product.name} ${product.id!}');
       await ref.update(product.toMap());
-      debugPrint('foi');
       return true;
     } catch (e) {
       debugPrint('erro update $e');
@@ -63,7 +61,6 @@ class ProductController {
     try {
       Reference storageReference =
           FirebaseStorage.instance.ref().child('product_pic').child('${product.name}-${product.id!.toString()}');
-
       UploadTask uploadTask = storageReference.putFile(imageFile);
       TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
 

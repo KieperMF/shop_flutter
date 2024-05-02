@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
 import 'package:shop_flutter/models/product_model.dart';
@@ -56,21 +55,17 @@ class _EditProductPageState extends State<EditProductPage> {
       child: Observer(builder: (context) {
         return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.blueGrey[900],
+              backgroundColor: Colors.blueGrey[800],
               title: const Text(
                 'Editar Produtos',
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            backgroundColor: Colors.blueGrey[800],
+            backgroundColor: Colors.blueGrey[700],
             body: SingleChildScrollView(
               child: Center(
                 child: Column(
                   children: [
-                    const Text(
-                      'Selecione um produto para editar',
-                      style: TextStyle(color: Colors.white, fontSize: 22),
-                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -120,7 +115,7 @@ class _EditProductPageState extends State<EditProductPage> {
                                 AnimatedContainer(
                                   duration: const Duration(milliseconds: 800),
                                   curve: Curves.easeInOut,
-                                  height: _isVisibleList[index] ? 430 : 0,
+                                  height: _isVisibleList[index] ? 470 : 0,
                                   width: 450,
                                   color: Colors.blueGrey[700],
                                   child: _isVisibleList[index]
@@ -338,8 +333,7 @@ class _EditProductPageState extends State<EditProductPage> {
                                                   child: ElevatedButton(
                                                       onPressed: () async {
                                                         Product product = Product(
-                                                            amount:
-                                                                amountController[index].text,
+                                                            amount:amountController[index].text,
                                                             category: categoryController[index].text,
                                                             description:descriptionController[index].text,
                                                             name:nameController[index].text,
