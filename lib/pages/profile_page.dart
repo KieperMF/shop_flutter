@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         appBar: AppBar(
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          backgroundColor: Colors.blueGrey[800],
+          backgroundColor: const Color.fromRGBO(12, 74, 110, 1.0),
           automaticallyImplyLeading: false,
           title: const Text('Perfil', style: TextStyle(color: Colors.white),),
           actions: [
@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               },
-              icon: const Icon(Icons.logout),
+              icon: const Icon(Icons.logout, color: Colors.white,),
             ),
           ],
         ),

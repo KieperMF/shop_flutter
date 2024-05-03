@@ -30,12 +30,12 @@ class _ProductPageState extends State<ProductPage> {
       child: Scaffold(
         appBar: AppBar(
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          backgroundColor: Colors.blueGrey[800],
+          backgroundColor: const Color.fromRGBO(12, 74, 110, 1.0),
           title: const Text(
             'Produto', style: TextStyle(color: Colors.white),
           ),
         ),
-        backgroundColor: Colors.blueGrey[700],
+        backgroundColor: const Color.fromRGBO(8, 47, 73, 1.0),
         body: Center(
           child: Column(
             children: [

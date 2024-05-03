@@ -29,7 +29,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
     return  Scaffold(
       body: bodyController(selectedItem),
       bottomNavigationBar: BottomNavigationBar(currentIndex: selectedItem,
-      backgroundColor: Colors.blueGrey[800],
+      backgroundColor: const Color.fromRGBO(12, 74, 110, 1.0),
       fixedColor: Colors.white,
       items:const[
         BottomNavigationBarItem(

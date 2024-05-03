@@ -33,11 +33,11 @@ class _CartPageState extends State<CartPage> {
       child: Scaffold(
         appBar: AppBar(
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          backgroundColor: Colors.blueGrey[800],
+          backgroundColor: const Color.fromRGBO(12, 74, 110, 1.0),
           automaticallyImplyLeading: false,
           title: const Text('Carrinho', style: TextStyle(color: Colors.white),),
         ),
-        backgroundColor: Colors.blueGrey[700],
+        backgroundColor: const Color.fromRGBO(8, 47, 73, 1.0),
         body: Observer(builder: (context) {
           return SingleChildScrollView(
             child: Center(
@@ -151,7 +151,8 @@ class _CartPageState extends State<CartPage> {
                                               height: 160,
                                               width: 160,
                                               child: Container(
-                                                decoration:const BoxDecoration(
+                                                decoration: BoxDecoration(
+                                                   borderRadius: BorderRadius.circular(12),
                                                     color:
                                                         Colors.white),
                                                 child: Image.network(

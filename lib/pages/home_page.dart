@@ -31,14 +31,14 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          backgroundColor: Colors.blueGrey[800],
+          backgroundColor: const Color.fromRGBO(12, 74, 110, 1.0),
           automaticallyImplyLeading: false,
           title: const Text(
             'Shop Flutter',
             style: TextStyle(color: Colors.white),
           ),
         ),
-        backgroundColor: Colors.blueGrey[700],
+        backgroundColor: const Color.fromRGBO(8, 47, 73, 1.0),
         body: SingleChildScrollView(
           child: Observer(
             builder: (context) {
@@ -70,9 +70,8 @@ class _HomePageState extends State<HomePage> {
                                 borderRadius: BorderRadius.circular(12),
                                 color: Colors.white),
                             margin: const EdgeInsets.symmetric(horizontal: 5),
-                            child: Image.network(
-                                "${management.eletrocicProducts[itemIndex].imagem}"),
-                          );
+                            child: management.eletrocicProducts.isNotEmpty ? Image.network(
+                                "${management.eletrocicProducts[itemIndex].imagem}") : const Icon(Icons.image, size: 200,));
                         },
                         options: CarouselOptions(
                           height: 250,
@@ -104,7 +103,11 @@ class _HomePageState extends State<HomePage> {
                               child: Row(
                                 children: [
                                   Container(
-                                      color: Colors.white,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
@@ -150,7 +153,11 @@ class _HomePageState extends State<HomePage> {
                               child: Row(
                                 children: [
                                   Container(
-                                      color: Colors.white,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
@@ -200,7 +207,11 @@ class _HomePageState extends State<HomePage> {
                               child: Row(
                                 children: [
                                   Container(
-                                      color: Colors.white,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
@@ -247,7 +258,11 @@ class _HomePageState extends State<HomePage> {
                               child: Row(
                                 children: [
                                   Container(
-                                      color: Colors.white,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
@@ -294,7 +309,11 @@ class _HomePageState extends State<HomePage> {
                               child: Row(
                                 children: [
                                   Container(
-                                      color: Colors.white,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
