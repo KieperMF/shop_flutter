@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shop_flutter/controllers/product_controller.dart';
 import 'package:shop_flutter/management_mobx.dart/management.dart';
@@ -34,7 +33,10 @@ class _HomePageState extends State<HomePage> {
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
           backgroundColor: Colors.blueGrey[800],
           automaticallyImplyLeading: false,
-          title: const Text('Shop Flutter', style: TextStyle(color: Colors.white),),
+          title: const Text(
+            'Shop Flutter',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         backgroundColor: Colors.blueGrey[700],
         body: SingleChildScrollView(
@@ -43,14 +45,51 @@ class _HomePageState extends State<HomePage> {
               return Center(
                 child: Column(
                   children: [
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            "Mais Vendidos",
+                            style: TextStyle(fontSize: 24, color: Colors.white),
+                          )),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    CarouselSlider.builder(
+                        itemCount: management.eletrocicProducts.length,
+                        itemBuilder: (BuildContext context, int itemIndex,
+                            int pageViewIndex) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.white),
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Image.network(
+                                "${management.eletrocicProducts[itemIndex].imagem}"),
+                          );
+                        },
+                        options: CarouselOptions(
+                          height: 250,
+                          autoPlay: true,
+                          autoPlayAnimationDuration:
+                              const Duration(milliseconds: 1000),
+                        )),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     const Padding(
                       padding: EdgeInsets.only(left: 16),
                       child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             "Livros",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 22, color: Colors.white),
                           )),
                     ),
                     SizedBox(
@@ -63,9 +102,9 @@ class _HomePageState extends State<HomePage> {
                             return Padding(
                               padding: const EdgeInsets.all(20),
                               child: Row(
-                                children: [                             
+                                children: [
                                   Container(
-                                    color: Colors.white,
+                                      color: Colors.white,
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
@@ -74,9 +113,8 @@ class _HomePageState extends State<HomePage> {
                                                 MaterialStateProperty.all(
                                                     Colors.white)),
                                         onPressed: () {
-                                          productSelected = management
-                                              .books
-                                              .elementAt(index);
+                                          productSelected =
+                                              management.books.elementAt(index);
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -97,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             "Eletrônicos",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 22, color: Colors.white),
                           )),
                     ),
                     SizedBox(
@@ -110,9 +148,9 @@ class _HomePageState extends State<HomePage> {
                             return Padding(
                               padding: const EdgeInsets.all(20),
                               child: Row(
-                                children: [                             
+                                children: [
                                   Container(
-                                    color: Colors.white,
+                                      color: Colors.white,
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
@@ -138,14 +176,16 @@ class _HomePageState extends State<HomePage> {
                             );
                           }),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     const Padding(
                       padding: EdgeInsets.only(left: 16),
                       child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             "Games",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 22, color: Colors.white),
                           )),
                     ),
                     SizedBox(
@@ -156,11 +196,11 @@ class _HomePageState extends State<HomePage> {
                           itemCount: management.gameProducts.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding:const EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               child: Row(
-                                children: [                             
+                                children: [
                                   Container(
-                                    color: Colors.white,
+                                      color: Colors.white,
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
@@ -192,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             "Periféricos",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 22, color: Colors.white),
                           )),
                     ),
                     SizedBox(
@@ -203,11 +243,11 @@ class _HomePageState extends State<HomePage> {
                           itemCount: management.peripheralsProducts.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding:const EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               child: Row(
-                                children: [                             
+                                children: [
                                   Container(
-                                    color: Colors.white,
+                                      color: Colors.white,
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
@@ -227,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                                         },
                                         child: Image.network(
                                             '${management.peripheralsProducts.elementAt(index).imagem}'),
-                                      )),                                      
+                                      )),
                                 ],
                               ),
                             );
@@ -239,7 +279,7 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             "Decoração",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 22, color: Colors.white),
                           )),
                     ),
                     SizedBox(
@@ -250,11 +290,11 @@ class _HomePageState extends State<HomePage> {
                           itemCount: management.decorationProducts.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding:const EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               child: Row(
-                                children: [                             
+                                children: [
                                   Container(
-                                    color: Colors.white,
+                                      color: Colors.white,
                                       height: 180,
                                       width: 180,
                                       child: TextButton(
@@ -274,7 +314,7 @@ class _HomePageState extends State<HomePage> {
                                         },
                                         child: Image.network(
                                             '${management.decorationProducts.elementAt(index).imagem}'),
-                                      )),                                      
+                                      )),
                                 ],
                               ),
                             );

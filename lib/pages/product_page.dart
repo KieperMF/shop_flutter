@@ -30,11 +30,12 @@ class _ProductPageState extends State<ProductPage> {
       child: Scaffold(
         appBar: AppBar(
           shape: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          backgroundColor: Colors.grey[500],
+          backgroundColor: Colors.blueGrey[800],
           title: const Text(
-            'Produto',
+            'Produto', style: TextStyle(color: Colors.white),
           ),
         ),
+        backgroundColor: Colors.blueGrey[700],
         body: Center(
           child: Column(
             children: [
@@ -42,11 +43,12 @@ class _ProductPageState extends State<ProductPage> {
               SizedBox(
                 height: 200,
                 width: 200,
-                child: Image.network("${productSelected!.imagem}"),
+                child: Container(color: Colors.white, child: Image.network("${productSelected!.imagem}")),
               ),
+              const SizedBox(height: 16,),
               Text(
                 '${productSelected!.name}',
-                style: const TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 22, color: Colors.white),
               ),
               const SizedBox(
                 height: 10,
@@ -55,7 +57,7 @@ class _ProductPageState extends State<ProductPage> {
                   width: 300,
                   child: Text(
                     '${productSelected!.description}',
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 20, color: Colors.white),
                   )),
               const SizedBox(
                 height: 10,
@@ -64,7 +66,7 @@ class _ProductPageState extends State<ProductPage> {
                   width: 300,
                   child: Text(
                     'Preço: ${double.parse('${productSelected!.price}').toStringAsFixed(2)}',
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 20, color: Colors.white),
                   )),
               const SizedBox(
                 height: 10,
@@ -73,7 +75,7 @@ class _ProductPageState extends State<ProductPage> {
                   width: 300,
                   child: Text(
                     'Quantidade disponível: ${productSelected!.amount}',
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 20, color: Colors.white),
                   )),
               const SizedBox(
                 height: 10,
