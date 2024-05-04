@@ -50,6 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
+        backgroundColor: const Color.fromRGBO(8, 47, 73, 1.0),
         body: Observer(builder: (context) {
           return Center(
             child: Column(
@@ -67,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             height: 150,
                             child: Container(
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5)),
+                                  borderRadius: BorderRadius.circular(30)),
                               child: Image.network(
                                 management.userPic!,
                                 height: 150,
@@ -110,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             });
                       },
                       child: const Text(
-                        'Trocar foto de perfil',
+                        'Trocar foto de perfil',style: TextStyle(color: Colors.black),
                       )),
                 ],
                 if (management.userPic == null) ...[
@@ -129,7 +130,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.only(left: 30),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: Text('${management.user!.displayName}'),
+                    child: Text('${management.user!.displayName}', 
+                    style:const TextStyle(
+                      color: Colors.white, 
+                    fontSize: 20),),
                   ),
                 ),
                 if (management.user!.uid == management.adminId) ...[
@@ -139,9 +143,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       alignment: Alignment.bottomLeft,
                       child: ElevatedButton(
                         style: ButtonStyle(
+                          backgroundColor:const MaterialStatePropertyAll(Color.fromARGB(255, 67, 139, 167)),
                             minimumSize:
                                 MaterialStateProperty.all(const Size(200, 37))),
-                        child: const Text('Adicionar Produtos'),
+                        child: const Text('Adicionar Produtos', style: TextStyle(color: Colors.white),),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const AddProductPage()));
@@ -158,9 +163,10 @@ class _ProfilePageState extends State<ProfilePage> {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProductPage()));
                           },
                           style: ButtonStyle(
+                            backgroundColor:const MaterialStatePropertyAll(Color.fromARGB(255, 67, 139, 167)),
                               minimumSize: MaterialStateProperty.all(
                                   const Size(200, 37))),
-                          child: const Text("Editar Produtos")),
+                          child: const Text("Editar Produtos", style: TextStyle(color: Colors.white),)),
                     ),
                   )
                 ],
