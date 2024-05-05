@@ -58,23 +58,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 30,
                 ),
+                
                 _loading
                     ? const Padding(
                         padding: EdgeInsets.all(32),
                         child: CircularProgressIndicator())
                     : management.userPic != null
-                        ? SizedBox(
-                            width: 150,
-                            height: 150,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Image.network(
-                                management.userPic!,
-                                height: 150,
-                              ),
-                            ),
-                          )
+                        ? CircleAvatar(
+                          backgroundImage: 
+                          NetworkImage(
+                            management.userPic!),
+                          maxRadius: 80,)
                         : const SizedBox(
                             height: 150,
                             width: 150,
