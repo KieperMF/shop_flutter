@@ -57,13 +57,13 @@ class _EditProductPageState extends State<EditProductPage> {
       child: Observer(builder: (context) {
         return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.blueGrey[800],
+              backgroundColor: const Color.fromRGBO(12, 74, 110, 1.0),
               title: const Text(
                 'Editar Produtos',
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            backgroundColor: Colors.blueGrey[700],
+            backgroundColor: const Color.fromRGBO(8, 47, 73, 1.0),
             body: SingleChildScrollView(
               child: Center(
                 child: Column(
@@ -83,7 +83,7 @@ class _EditProductPageState extends State<EditProductPage> {
                                 GestureDetector(
                                   onTap: () => _toggleVisibility(index),
                                   child: Container(
-                                      color: Colors.blueGrey[600],
+                                      color: const Color.fromRGBO(12, 74, 110, 1.0),
                                       padding: const EdgeInsets.all(12),
                                       child: Padding(
                                         padding: const EdgeInsets.all(16),
@@ -119,7 +119,7 @@ class _EditProductPageState extends State<EditProductPage> {
                                   curve: Curves.easeInOut,
                                   height: _isVisibleList[index] ? 470 : 0,
                                   width: 450,
-                                  color: Colors.blueGrey[600],
+                                  color: const Color.fromRGBO(12, 74, 110, 1.0),
                                   child: _isVisibleList[index]
                                       ? SingleChildScrollView(
                                           physics:
@@ -213,19 +213,19 @@ class _EditProductPageState extends State<EditProductPage> {
                                             SizedBox(
                                               width: 180,
                                               child: DropdownButton<String>(
+                                                dropdownColor: const Color.fromRGBO(8, 47, 73, 1.0),
                                                 value: managment.products[index].category,
-                                                icon: const Icon(Icons.arrow_downward, color: Colors.black,),
+                                                icon: const Icon(Icons.arrow_downward, color: Colors.white,),
                                                 elevation: 16,
-                                                style: const TextStyle(color: Colors.black),
+                                                style: const TextStyle(color: Colors.white),
                                                 underline: Container(
                                                   height: 2,
-                                                  color: Colors.black,
+                                                  color: Colors.grey,
                                                 ),
                                                 onChanged: (String? value) {
                                                   setState(() {
                                                     dropdownValue = value!;
                                                     managment.products[index].category = value;
-                                                    print('${managment.products[index].category}');
                                                   });
                                                 },
                                                 items: list.map<DropdownMenuItem<String>>((String value) {

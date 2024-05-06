@@ -58,11 +58,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 30,
                 ),
-                
                 _loading
-                    ? const Padding(
-                        padding: EdgeInsets.all(32),
-                        child: CircularProgressIndicator())
+                    ? const CircleAvatar(maxRadius: 80, child: CircularProgressIndicator(color: Colors.red,))
                     : management.userPic != null
                         ? CircleAvatar(
                           backgroundImage: 
@@ -70,8 +67,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             management.userPic!),
                           maxRadius: 80,)
                         : const SizedBox(
-                            height: 150,
-                            width: 150,
+                            height: 120,
+                            width: 120,
                             child: Icon(
                               Icons.account_box,
                               size: 150,
