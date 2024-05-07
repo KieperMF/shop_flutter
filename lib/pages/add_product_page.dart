@@ -21,7 +21,13 @@ class _AddProductPageState extends State<AddProductPage> {
   final prodPriceController = TextEditingController();
   final amountController = TextEditingController();
   final management = Management();
-  List<String> list = <String>['Eletrônico', 'Games', 'Periférico', 'Decoração', 'Livros'];
+  List<String> list = <String>[
+    'Eletrônico',
+    'Games',
+    'Periférico',
+    'Decoração',
+    'Livros'
+  ];
   String dropdownValue = 'Eletrônico';
 
   @override
@@ -29,8 +35,13 @@ class _AddProductPageState extends State<AddProductPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Adicionar Produtos'),
+          backgroundColor: const Color.fromRGBO(12, 74, 110, 1.0),
+          title: const Text(
+            'Adicionar Produtos',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
+        backgroundColor: const Color.fromRGBO(8, 47, 73, 1.0),
         body: SingleChildScrollView(
           child: Observer(builder: (context) {
             return Center(
@@ -53,22 +64,27 @@ class _AddProductPageState extends State<AddProductPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextButton(
+                  ElevatedButton(
                       onPressed: () async {
                         final response = await ImagePicker()
                             .pickImage(source: ImageSource.gallery);
                         management.selectedImage = response!.path;
                       },
-                      child: const Text('Selecionar imagem')),
+                      child: const Text(
+                        'Selecionar imagem',
+                        style: TextStyle(color: Colors.black),
+                      )),
                   const SizedBox(
                     height: 20,
                   ),
                   SizedBox(
                     width: 250,
                     child: TextField(
+                      cursorColor: Colors.white,
                       controller: prodNameController,
                       decoration: const InputDecoration(
-                          hintText: 'Informe o nome do produto'),
+                        border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                          hintText: 'Informe o nome do produto', hintStyle: TextStyle(color: Colors.white)),
                     ),
                   ),
                   const SizedBox(
@@ -77,10 +93,13 @@ class _AddProductPageState extends State<AddProductPage> {
                   SizedBox(
                     width: 250,
                     child: TextField(
+                      cursorColor: Colors.white,
                       controller: prodPriceController,
-                      keyboardType:const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                       decoration: const InputDecoration(
-                          hintText: 'Informe o preço do produto'),
+                        border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                          hintText: 'Informe o preço do produto', hintStyle: TextStyle(color: Colors.white)),
                     ),
                   ),
                   const SizedBox(
@@ -89,10 +108,12 @@ class _AddProductPageState extends State<AddProductPage> {
                   SizedBox(
                     width: 250,
                     child: TextField(
+                      cursorColor: Colors.white,
                       controller: amountController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                          hintText: 'Informe a quantidade'),
+                        border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                          hintText: 'Informe a quantidade', hintStyle: TextStyle(color: Colors.white)),
                     ),
                   ),
                   const SizedBox(
@@ -101,9 +122,11 @@ class _AddProductPageState extends State<AddProductPage> {
                   SizedBox(
                     width: 250,
                     child: TextField(
+                      cursorColor: Colors.white,
                       controller: prodDescController,
                       decoration: const InputDecoration(
-                          hintText: 'Descrição do produto'),
+                        border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                          hintText: 'Descrição do produto', hintStyle: TextStyle(color: Colors.white)),
                     ),
                   ),
                   const SizedBox(
@@ -111,9 +134,10 @@ class _AddProductPageState extends State<AddProductPage> {
                   ),
                   DropdownButton<String>(
                     value: dropdownValue,
-                    icon: const Icon(Icons.arrow_downward),
+                    dropdownColor: Colors.black,
+                    icon: const Icon(Icons.arrow_downward, color: Colors.white,),
                     elevation: 16,
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.white),
                     underline: Container(
                       height: 2,
                       color: Colors.black,
@@ -152,7 +176,7 @@ class _AddProductPageState extends State<AddProductPage> {
                                                     .getProductLength() +
                                                 1;
                                             Product product = Product(
-                                              category: dropdownValue,
+                                                category: dropdownValue,
                                                 id: idP,
                                                 description:
                                                     prodDescController.text,
@@ -193,7 +217,7 @@ class _AddProductPageState extends State<AddProductPage> {
                                   );
                                 });
                           },
-                          icon: const Icon(Icons.add))),
+                          icon: const Icon(Icons.add, color: Colors.white,))),
                 ],
               ),
             );

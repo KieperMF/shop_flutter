@@ -111,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         onPressed: () {
                           management.pickImageFromGallery();
                         },
-                        child: const Text('Selecione uma foto de perfil')),
+                        child: const Text('Selecione uma foto de perfil',style: TextStyle(color: Colors.black))),
                   ),
                 ],
                 const SizedBox(
