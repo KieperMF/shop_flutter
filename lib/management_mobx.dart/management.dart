@@ -72,8 +72,7 @@ abstract class ManagementBase with Store {
   Future pickImageFromGallery() async {
     final responseImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-    selectedImage = responseImage!.path;
-    userService.saveProfilePic(selectedImage);
+    userService.saveProfilePic(responseImage!.path);
     userPic = await userService.getUserPic();
   }
 
@@ -96,15 +95,6 @@ abstract class ManagementBase with Store {
     product.imagem = prodFromIndex.imagem;
     final resp = await productService.updateProduct(product);
     return resp;
-  }
-
-  @action
-  changeUserPic()async{
-    final responseImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    selectedImage = responseImage!.path;
-    await userService.saveChangedPic(selectedImage);
-    userPic = await userService.getUserPic();
   }
 
   @action

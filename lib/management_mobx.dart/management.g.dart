@@ -119,6 +119,37 @@ mixin _$Management on ManagementBase, Store {
     });
   }
 
+  late final _$decorationProductsAtom =
+      Atom(name: 'ManagementBase.decorationProducts', context: context);
+
+  @override
+  ObservableList<Product> get decorationProducts {
+    _$decorationProductsAtom.reportRead();
+    return super.decorationProducts;
+  }
+
+  @override
+  set decorationProducts(ObservableList<Product> value) {
+    _$decorationProductsAtom.reportWrite(value, super.decorationProducts, () {
+      super.decorationProducts = value;
+    });
+  }
+
+  late final _$booksAtom = Atom(name: 'ManagementBase.books', context: context);
+
+  @override
+  ObservableList<Product> get books {
+    _$booksAtom.reportRead();
+    return super.books;
+  }
+
+  @override
+  set books(ObservableList<Product> value) {
+    _$booksAtom.reportWrite(value, super.books, () {
+      super.books = value;
+    });
+  }
+
   late final _$cartProductsAtom =
       Atom(name: 'ManagementBase.cartProducts', context: context);
 
@@ -207,17 +238,9 @@ mixin _$Management on ManagementBase, Store {
       AsyncAction('ManagementBase.updateProduct', context: context);
 
   @override
-  Future updateProduct(Product product, Product prodVerif) {
+  Future updateProduct(Product productTyped, Product prodFromIndex) {
     return _$updateProductAsyncAction
-        .run(() => super.updateProduct(product, prodVerif));
-  }
-
-  late final _$changeUserPicAsyncAction =
-      AsyncAction('ManagementBase.changeUserPic', context: context);
-
-  @override
-  Future changeUserPic() {
-    return _$changeUserPicAsyncAction.run(() => super.changeUserPic());
+        .run(() => super.updateProduct(productTyped, prodFromIndex));
   }
 
   late final _$pickProductFromGalleryAsyncAction =
@@ -288,6 +311,8 @@ products: ${products},
 eletrocicProducts: ${eletrocicProducts},
 gameProducts: ${gameProducts},
 peripheralsProducts: ${peripheralsProducts},
+decorationProducts: ${decorationProducts},
+books: ${books},
 cartProducts: ${cartProducts},
 product: ${product},
 userPic: ${userPic}

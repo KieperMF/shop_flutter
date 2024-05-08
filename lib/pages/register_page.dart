@@ -24,8 +24,10 @@ class _RegisterPageState extends State<RegisterPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Cadastro'),
+          backgroundColor: const Color.fromRGBO(12, 74, 110, 1.0),
+          title: const Text('Cadastro', style: TextStyle(color: Colors.white),),
         ),
+        backgroundColor: const Color.fromRGBO(8, 47, 73, 1.0),
         body: Center(
           child: Form(
             key: _formKey,
@@ -41,16 +43,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: TextFormField(
+                      cursorColor: Colors.white,
                       controller: nameController,
-                      style: const TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
+                        suffixIcon: Icon(Icons.person, color: Colors.white,),
                           hintText: 'Informe seu nome',
-                          hintStyle: TextStyle(color: Colors.black)),
+                          hintStyle: TextStyle(color: Colors.white)),
                       validator: (String? value) {
                         if (value == null) {
                           return 'Preencha seu nome';
                         }
-                        if (value.length < 2) {
+                        else if (value.length < 2) {
                           return 'O nome é muito curto';
                         }
                         return null;
@@ -69,11 +73,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: TextFormField(
+                      cursorColor: Colors.white,
                       controller: emailController,
-                      style: const TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
+                        suffixIcon: Icon(Icons.email, color: Colors.white,),
                           hintText: 'Email',
-                          hintStyle: TextStyle(color: Colors.black)),
+                          hintStyle: TextStyle(color: Colors.white)),
                       validator: (String? value) {
                         if (value == null) {
                           return 'O E-mail não pode ser vazio';
@@ -100,14 +106,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: TextFormField(
+                      cursorColor: Colors.white,
                       controller: passwordController,
-                      style: const TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.white),
                       obscureText: obscurePassword,
                       decoration: InputDecoration(
                           suffixIcon: IconButton(
                             icon: Icon(obscurePassword
                                 ? Icons.visibility_off
-                                : Icons.visibility),
+                                : Icons.visibility, color: Colors.white,),
                             onPressed: () {
                               setState(() {
                                 obscurePassword = !obscurePassword;
@@ -115,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                           ),
                           hintText: 'Senha',
-                          hintStyle: const TextStyle(color: Colors.black)),
+                          hintStyle: const TextStyle(color: Colors.white)),
                       validator: (String? value) {
                         if (value == null) {
                           return 'A senha não pode ser vazia';
